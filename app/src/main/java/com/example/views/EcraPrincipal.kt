@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -34,7 +35,7 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -50,11 +51,15 @@ import com.example.romus.ui.theme.RomusTheme
 data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int)
 
 @Composable
-fun EcraPrincipal() {
-    var selectedTab by remember { mutableStateOf(0) }
+fun EcraPrincipal(onGameClick: (GameItem) -> Unit = {}) {
+    var selectedTab by remember { mutableIntStateOf(0) }
     val items = listOf(
-        GameItem("Fortnite", R.drawable.fortnite, R.drawable.fortnite),
-        GameItem("Call of Duty: Warzone", R.drawable.warzone, R.drawable.warzone)
+        GameItem("Fortnite",
+            R.drawable.fortnite,
+            R.drawable.fortnite),
+        GameItem("Call of Duty: Warzone",
+            R.drawable.warzone,
+            R.drawable.warzone)
     )
 
     Column(
@@ -101,7 +106,9 @@ fun EcraPrincipal() {
                     colors = CardDefaults.cardColors(containerColor = Color.White),
                     elevation = CardDefaults.cardElevation(10.dp),
                     shape = RoundedCornerShape(24.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onGameClick(game) }
                 ) {
                     Column {
                         Image(
@@ -109,7 +116,7 @@ fun EcraPrincipal() {
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(160.dp)
+                                .height(200.dp)
                                 .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
                             contentScale = ContentScale.Crop
                         )
@@ -125,7 +132,7 @@ fun EcraPrincipal() {
                                     Image(
                                         painter = painterResource(id = game.thumbRes),
                                         contentDescription = null,
-                                        modifier = Modifier.size(32.dp)
+                                        modifier = Modifier.size(30.dp)
                                     )
                                 }
                                 Text(text = game.title)

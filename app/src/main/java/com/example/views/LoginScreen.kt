@@ -85,7 +85,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                 colors = CardDefaults.cardColors(
                     containerColor = Color.White.copy(alpha = 0.08f)
                 ),
-                elevation = CardDefaults.cardElevation(8.dp),
+                elevation = CardDefaults.cardElevation(2.dp),
                 shape = RoundedCornerShape(30.dp)
             ) {
                 Column(
