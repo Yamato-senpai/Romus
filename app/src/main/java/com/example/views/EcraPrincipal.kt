@@ -55,7 +55,7 @@ fun EcraPrincipal(onGameClick: (GameItem) -> Unit = {}) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val items = listOf(
         GameItem("Fortnite",
-            R.drawable.fortnite,
+            R.drawable.fortnite1,
             R.drawable.fortnite),
         GameItem("Call of Duty: Warzone",
             R.drawable.warzone1,
