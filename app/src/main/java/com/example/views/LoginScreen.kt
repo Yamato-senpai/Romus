@@ -41,7 +41,7 @@ import com.example.romus.ui.theme.GradientEnd
 import com.example.romus.R
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onLogin: () -> Unit = {}) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val showPassword = remember { mutableStateOf(false) }
@@ -69,7 +69,7 @@ fun LoginScreen() {
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                         contentDescription = null
                     )
                 }
@@ -81,12 +81,12 @@ fun LoginScreen() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .widthIn(max = 420.dp),
+                    .widthIn(max = 300.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color.White.copy(alpha = 0.08f)
                 ),
-                elevation = CardDefaults.cardElevation(6.dp),
-                shape = RoundedCornerShape(16.dp)
+                elevation = CardDefaults.cardElevation(8.dp),
+                shape = RoundedCornerShape(30.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(30.dp),
@@ -122,12 +122,12 @@ fun LoginScreen() {
 
                     val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
                     Button(
-                        onClick = { },
+                        onClick = { onLogin() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp)
                             .background(btnBrush, RoundedCornerShape(30.dp)),
-                        enabled = email.value.isNotBlank() && password.value.isNotBlank()
+                        enabled = true
                     ) {
                         Text("Entrar", color = Color.White)
                     }

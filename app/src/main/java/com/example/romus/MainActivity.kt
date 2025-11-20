@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.romus.ui.theme.RomusTheme
 import com.example.views.LoginScreen
+import com.example.views.EcraPrincipal
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +18,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RomusTheme {
-                LoginScreen()
+                val loggedIn = remember { mutableStateOf(false) }
+                if (loggedIn.value) {
+                    EcraPrincipal()
+                } else {
+                    LoginScreen(onLogin = { loggedIn.value = true })
+                }
             }
         }
     }
