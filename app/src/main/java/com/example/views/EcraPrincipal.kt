@@ -58,7 +58,7 @@ fun EcraPrincipal(onGameClick: (GameItem) -> Unit = {}) {
             R.drawable.fortnite,
             R.drawable.fortnite),
         GameItem("Call of Duty: Warzone",
-            R.drawable.warzone,
+            R.drawable.warzone1,
             R.drawable.warzone)
     )
 
