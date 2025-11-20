@@ -49,10 +49,14 @@ import com.example.romus.ui.theme.GradientEnd
 import com.example.romus.ui.theme.GradientStart
 import com.example.romus.ui.theme.RomusTheme
 import android.widget.Toast
+import com.example.views.HistoryItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WarzoneDetail(game: GameItem, onBack: () -> Unit) {
+fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryItem) -> Unit = {}) {
     val headerGradient = Brush.verticalGradient(listOf(GradientStart, GradientEnd))
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
@@ -152,6 +156,13 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit) {
                     confirmButton = {
                         TextButton(onClick = {
                             Toast.makeText(ctx, "Compra realizada", Toast.LENGTH_SHORT).show()
+                            onRecordPurchase(
+                                HistoryItem(
+                                    title = "Compra: ${selected.value!!.title}",
+                                    date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                                    amount = selected.value!!.price
+                                )
+                            )
                             selected.value = null
                         }) { Text("Confirmar") }
                     },

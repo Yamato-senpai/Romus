@@ -49,10 +49,14 @@ import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.romus.ui.theme.RomusTheme
+import com.example.views.HistoryItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GameDetail(game: GameItem, onBack: () -> Unit) {
+fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryItem) -> Unit = {}) {
     val headerGradient = Brush.verticalGradient(listOf(GradientStart, GradientEnd))
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<Purchasable?>(null) }
@@ -144,6 +148,13 @@ fun GameDetail(game: GameItem, onBack: () -> Unit) {
                     confirmButton = {
                         TextButton(onClick = {
                             Toast.makeText(ctx, "Compra realizada", Toast.LENGTH_SHORT).show()
+                            onRecordPurchase(
+                                HistoryItem(
+                                    title = "Compra: ${selected.value!!.title}",
+                                    date = currentDateFormatted(),
+                                    amount = selected.value!!.price
+                                )
+                            )
                             selected.value = null
                         }) { Text("Confirmar") }
                     },
@@ -168,6 +179,9 @@ private fun purchasablesFor(title: String): List<Purchasable> = listOf(
     Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", "$79.99"),
     Purchasable("Battle Pass", "Passe de batalha da temporada 5.", "$9.99")
 )
+
+private fun currentDateFormatted(): String =
+    SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date())
 
 @Preview(showBackground = true)
 @Composable

@@ -33,6 +33,7 @@ import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Star
 
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.History
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -51,7 +52,13 @@ import com.example.romus.ui.theme.RomusTheme
 data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int)
 
 @Composable
-fun EcraPrincipal(onGameClick: (GameItem) -> Unit = {}) {
+fun EcraPrincipal(
+    onGameClick: (GameItem) -> Unit = {},
+    historyItems: List<HistoryItem> = emptyList(),
+    profileName: String = "Utilizador",
+    profileEmail: String = "email@exemplo.com",
+    onUpdateProfile: (String, String) -> Unit = { _, _ -> }
+) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val items = listOf(
         GameItem("Fortnite",
@@ -95,74 +102,84 @@ fun EcraPrincipal(onGameClick: (GameItem) -> Unit = {}) {
             }
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(items) { game ->
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(10.dp),
-                    shape = RoundedCornerShape(24.dp),
+        when (selectedTab) {
+            0 -> {
+                LazyColumn(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onGameClick(game) }
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Column {
-                        Image(
-                            painter = painterResource(id = game.imageRes),
-                            contentDescription = null,
+                    items(items) { game ->
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            elevation = CardDefaults.cardElevation(10.dp),
+                            shape = RoundedCornerShape(24.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                                .clickable { onGameClick(game) }
                         ) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Surface(shape = RoundedCornerShape(8.dp), color = Color(0xFFF2F2F2)) {
-                                    Image(
-                                        painter = painterResource(id = game.thumbRes),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(30.dp)
+                            Column {
+                                Image(
+                                    painter = painterResource(id = game.imageRes),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(200.dp)
+                                        .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                        Surface(shape = RoundedCornerShape(8.dp), color = Color(0xFFF2F2F2)) {
+                                            Image(
+                                                painter = painterResource(id = game.thumbRes),
+                                                contentDescription = null,
+                                                modifier = Modifier.size(30.dp)
+                                            )
+                                        }
+                                        Text(text = game.title)
+                                    }
+                                    val btnBrush = Brush.radialGradient(listOf(Color(0xFFB388FF), Color(0xFF7C4DFF)))
+                                    Box(
+                                        modifier = Modifier
+                                            .size(28.dp)
+                                            .clip(CircleShape)
+                                            .background(btnBrush)
                                     )
                                 }
-                                Text(text = game.title)
                             }
-                            val btnBrush = Brush.radialGradient(listOf(Color(0xFFB388FF), Color(0xFF7C4DFF)))
-                            Box(
-                                modifier = Modifier
-                                    .size(28.dp)
-                                    .clip(CircleShape)
-                                    .background(btnBrush)
-                            )
                         }
                     }
+                    item { Spacer(Modifier.height(72.dp)) }
                 }
             }
-            item { Spacer(Modifier.height(72.dp)) }
+            1 -> {
+                HistoricoScreen(modifier = Modifier.weight(1f), items = historyItems)
+            }
+            2 -> {
+                PerfilScreen(modifier = Modifier.weight(1f), name = profileName, email = profileEmail, onUpdateProfile = onUpdateProfile)
+            }
         }
 
         NavigationBar(containerColor = Color.White) {
             NavigationBarItem(
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
-                label = { Text("Destaque") },
+                label = { Text("Destaques") },
                 icon = { Icon(imageVector = Icons.Rounded.Star, contentDescription = null) }
             )
             NavigationBarItem(
                 selected = selectedTab == 1,
                 onClick = { selectedTab = 1 },
                 label = { Text("Histórico") },
-                icon = { Icon(imageVector = Icons.Rounded.Star, contentDescription = null) }
+                icon = { Icon(imageVector = Icons.Rounded.History, contentDescription = null) }
             )
             NavigationBarItem(
                 selected = selectedTab == 2,
