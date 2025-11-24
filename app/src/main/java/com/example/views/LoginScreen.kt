@@ -49,12 +49,12 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(GradientStart, GradientEnd, DarkPurpleBackground)
-                )
-            )
+            .background(Color.White)
             .padding(24.dp)
+
+
+
+
     ) {
         Column(
             modifier = Modifier.align(Alignment.Center),
@@ -75,15 +75,15 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                 }
             }
 
-            Text(text = "Bem-vindo ", color = Color.White)
-            Text(text = "Faça login para continuar", color = Color.White.copy(alpha = 0.75f))
+            Text(text = "Bem-vindo ", color = Color.Black)
+            Text(text = "Faça login para continuar", color = Color.Black)
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .widthIn(max = 300.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White.copy(alpha = 0.08f)
+                    containerColor = Color.White
                 ),
                 elevation = CardDefaults.cardElevation(2.dp),
                 shape = RoundedCornerShape(30.dp)
@@ -116,7 +116,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
 
                     Text(
                         text = "Esqueci minha senha",
-                        color = MaterialTheme.colorScheme.primary,
+                        color = Color.Black,
                         modifier = Modifier.align(Alignment.End).clickable { }
                     )
 
@@ -129,7 +129,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                             .background(btnBrush, RoundedCornerShape(30.dp)),
                         enabled = true
                     ) {
-                        Text("Entrar", color = Color.White)
+                        Text("Entrar", color = Color.Black)
                     }
                 }
             }

@@ -75,12 +75,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(140.dp)
-                .background(headerGradient)
-        )
+
 
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -102,11 +97,11 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
             Text(text = "Itens disponíveis", style = MaterialTheme.typography.titleSmall)
 
             val purchasables = listOf(
-                WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", "$9.99"),
-                WarzoneItem("COD Points 2,400", "Pacote popular de CP.", "$19.99"),
-                WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", "$39.99"),
-                WarzoneItem("COD Points 10,000", "Pacote grande para várias temporadas.", "$99.99"),
-                WarzoneItem("Battle Pass", "Passe de batalha da temporada.", "$9.99")
+                WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", "10,000KWZ"),
+                WarzoneItem("COD Points 2,400", "Pacote popular de CP.", "23,000KWZ"),
+                WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", "40,000KWZ"),
+                WarzoneItem("COD Points 10,000", "Pacote grande para várias temporadas.", "50,000KWZ"),
+                WarzoneItem("Battle Pass", "Passe de batalha da temporada.", "11,000KWZ")
             )
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(purchasables) { item ->
@@ -121,12 +116,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(52.dp)
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(Color(0xFFF2F7FF))
-                            )
+
                             Column(modifier = Modifier.weight(1f)) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Text(item.title, fontWeight = FontWeight.SemiBold)
@@ -137,7 +127,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                                 Text(item.price, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(6.dp))
                                 val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                                Button(onClick = { selected.value = item }, modifier = Modifier.background(btnBrush, RoundedCornerShape(10.dp))) {
+                                Button(onClick = { selected.value = item }, ) {
                                     Text("Comprar", color = Color.White)
                                 }
                             }

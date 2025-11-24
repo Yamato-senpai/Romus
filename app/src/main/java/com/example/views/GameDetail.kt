@@ -67,20 +67,11 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                     androidx.compose.material3.Text("←")
                 }
             },
-            actions = {
-                IconButton(onClick = { }) {
-                    androidx.compose.material3.Text("♡")
-                }
-            },
+
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(140.dp)
-                .background(headerGradient)
-        )
+
 
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -115,12 +106,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(52.dp)
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(Color(0xFFF6F2FF))
-                            )
+
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(item.title, fontWeight = FontWeight.SemiBold)
                                 Text(item.subtitle, color = Color(0xFF616161), maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -129,7 +115,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                                 Text(item.price, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(6.dp))
                                 val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                                Button(onClick = { selected.value = item }, modifier = Modifier.background(btnBrush, RoundedCornerShape(10.dp))) {
+                                Button(onClick = { selected.value = item },) {
                                     Text("Comprar", color = Color.White)
                                 }
                             }
@@ -171,11 +157,11 @@ private fun descriptionFor(title: String): String =
     "Fortnite é um jogo free-to-play com diversos modos e conteúdos épicos. Jogue com amigos e explore ilhas, eventos e muito mais."
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
-    Purchasable("V-Bucks 1,000", "Moeda do jogo para compras na loja.", "$7.99"),
-    Purchasable("V-Bucks 2,800", "Pacote econômico de V-Bucks.", "$19.99"),
-    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", "$31.99"),
-    Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", "$79.99"),
-    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", "$9.99")
+    Purchasable("V-Bucks 1,000", "Moeda do jogo para compras na loja.", "8,000KWZ"),
+    Purchasable("V-Bucks 2,800", "Pacote econômico de V-Bucks.", "20,000KWZ"),
+    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", "$32,500KWZ"),
+    Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", "$100,000KWZ"),
+    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", "13,550KWZ")
 )
 
 private fun currentDateFormatted(): String =

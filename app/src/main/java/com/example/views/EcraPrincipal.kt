@@ -138,13 +138,7 @@ fun EcraPrincipal(
                                         }
                                         Text(text = game.title)
                                     }
-                                    val btnBrush = Brush.radialGradient(listOf(Color(0xFFB388FF), Color(0xFF7C4DFF)))
-                                    Box(
-                                        modifier = Modifier
-                                            .size(28.dp)
-                                            .clip(CircleShape)
-                                            .background(btnBrush)
-                                    )
+
                                 }
                             }
                         }
@@ -176,7 +170,7 @@ fun EcraPrincipal(
             NavigationBarItem(
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2 },
-                label = { Text("Perfil") },
+                label = { Text("Player") },
                 icon = { Text("👤") }
             )
         }

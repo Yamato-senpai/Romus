@@ -68,16 +68,7 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
                     Text(name, fontWeight = FontWeight.SemiBold)
                     Text(email, color = Color(0xFF616161))
                 }
-                val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                Button(
-                    onClick = { showDialog.value = true },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(btnBrush)
-                ) {
-                    Text("Editar", color = Color.White)
-                }
+
             }
         }
         Card(
@@ -107,7 +98,7 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
 
         Card(
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(50.dp),
+            elevation = CardDefaults.cardElevation(30.dp),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -134,10 +125,10 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Atividade Recente", style = MaterialTheme.typography.titleSmall)
+                Text("Conquistas Recentes ", style = MaterialTheme.typography.titleSmall)
                 Box(modifier = Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFF2F2F2)))
-                Text("Nenhuma atividade ainda")
-                Text("Sua primeira reserva aparecerá aqui", color = Color(0xFF616161))
+                Text("Nenhuma conquista ainda")
+                Text("Não desista de nada", color = Color(0xFF616161))
             }
         }
 
@@ -151,27 +142,6 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
         Spacer(Modifier.height(55.dp))
     }
 
-    if (showDialog.value) {
-        AlertDialog(
-            onDismissRequest = { showDialog.value = false },
-            title = { Text("Editar perfil") },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedTextField(value = newName.value, onValueChange = { newName.value = it }, label = { Text("Nome") })
-                    OutlinedTextField(value = newEmail.value, onValueChange = { newEmail.value = it }, label = { Text("Email") })
-                }
-            },
-            confirmButton = {
-                Button(onClick = {
-                    onUpdateProfile(newName.value, newEmail.value)
-                    showDialog.value = false
-                }) { Text("Guardar") }
-            },
-            dismissButton = {
-                Button(onClick = { showDialog.value = false }) { Text("Cancelar") }
-            }
-        )
-    }
 }
 
 @Preview(showBackground = true)

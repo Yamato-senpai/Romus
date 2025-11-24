@@ -56,13 +56,8 @@ fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sa
                         Column(horizontalAlignment = Alignment.End) {
                             Text(item.amount, fontWeight = FontWeight.Bold)
                             Spacer(Modifier.height(6.dp))
-                            val brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                            Box(
-                                modifier = Modifier
-                                    .width(56.dp)
-                                    .height(6.dp)
-                                    .background(brush, RoundedCornerShape(3.dp))
-                            )
+
+
                         }
                     }
                 }
