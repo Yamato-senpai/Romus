@@ -26,14 +26,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Notifications
-import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.Star
-
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.History
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -92,12 +84,12 @@ fun EcraPrincipal(
             Spacer(modifier = Modifier.weight(1f))
             Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                    Icon(imageVector = Icons.Rounded.Notifications, contentDescription = null)
+                    Text("🔔")
                 }
             }
             Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                    Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
+                    Text("⚙")
                 }
             }
         }
@@ -173,19 +165,19 @@ fun EcraPrincipal(
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
                 label = { Text("Destaques") },
-                icon = { Icon(imageVector = Icons.Rounded.Star, contentDescription = null) }
+                icon = { Text("★") }
             )
             NavigationBarItem(
                 selected = selectedTab == 1,
                 onClick = { selectedTab = 1 },
                 label = { Text("Histórico") },
-                icon = { Icon(imageVector = Icons.Rounded.History, contentDescription = null) }
+                icon = { Text("🕓") }
             )
             NavigationBarItem(
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2 },
                 label = { Text("Perfil") },
-                icon = { Icon(imageVector = Icons.Rounded.Person, contentDescription = null) }
+                icon = { Text("👤") }
             )
         }
     }

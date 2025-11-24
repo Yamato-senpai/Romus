@@ -42,9 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.FavoriteBorder
+ 
 import com.example.romus.ui.theme.GradientEnd
 import com.example.romus.ui.theme.GradientStart
 import com.example.romus.ui.theme.RomusTheme
@@ -66,12 +64,12 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
             title = { Text(game.title) },
             navigationIcon = {
                 IconButton(onClick = onBack) {
-                    Icon(imageVector = Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null)
+                    androidx.compose.material3.Text("←")
                 }
             },
             actions = {
                 IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Rounded.FavoriteBorder, contentDescription = null)
+                    androidx.compose.material3.Text("♡")
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)

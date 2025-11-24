@@ -111,16 +111,20 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Column(modifier = Modifier.padding(25.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("Saldo", style = MaterialTheme.typography.titleSmall)
-                Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text("€10.00", color = Color(0xFFD32F2F), fontWeight = FontWeight.Bold)
-                    Button(onClick = { }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)), shape = RoundedCornerShape(50.dp)) {
-                        Text("Recarregar", color = Color.White)
+            Row {
+                Column(modifier = Modifier.padding(25.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Saldo", style = MaterialTheme.typography.titleSmall)
+                    Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                        Text("€10.00", color = Color(0xFFD32F2F), fontWeight = FontWeight.Bold)
+                        Button(onClick = { }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)), shape = RoundedCornerShape(50.dp)) {
+                            Text("Recarregar", color = Color.White)
+                        }
                     }
+
                 }
 
             }
+
         }
 
         Card(

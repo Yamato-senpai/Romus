@@ -37,9 +37,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.FavoriteBorder
+ 
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.romus.ui.theme.GradientStart
 import com.example.romus.ui.theme.GradientEnd
@@ -66,12 +64,12 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
             title = { Text(game.title) },
             navigationIcon = {
                 IconButton(onClick = onBack) {
-                    Icon(imageVector = Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null)
+                    androidx.compose.material3.Text("←")
                 }
             },
             actions = {
                 IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Rounded.FavoriteBorder, contentDescription = null)
+                    androidx.compose.material3.Text("♡")
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)

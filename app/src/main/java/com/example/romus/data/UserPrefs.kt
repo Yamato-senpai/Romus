@@ -1,44 +1,50 @@
 package com.example.romus.data
 
 import android.content.Context
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import android.content.SharedPreferences
 import com.example.views.HistoryItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-
-private val ERROR.data: Flow<UserState>
-val Context.userDataStore by preferencesDataStore("user_prefs")
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 data class UserState(val name: String, val email: String, val history: List<HistoryItem>)
 
 object UserPrefs {
-    private val KEY_NAME = stringPreferencesKey("user_name")
-    private val KEY_EMAIL = stringPreferencesKey("user_email")
-    private val KEY_HISTORY = stringPreferencesKey("user_history")
+    private const val PREFS_NAME = "user_prefs"
+    private const val KEY_NAME = "user_name"
+    private const val KEY_EMAIL = "user_email"
+    private const val KEY_HISTORY = "user_history"
 
-    fun flow(context: Context): Flow<UserState> =
-        context.userDataStore.data.map { prefs ->
-            val name = prefs[KEY_NAME] ?: "Utilizador"
-            val email = prefs[KEY_EMAIL] ?: "email@exemplo.com"
-            val historyStr = prefs[KEY_HISTORY] ?: ""
-            UserState(name, email, deserializeHistory(historyStr))
-        }
+    private var flowCache: MutableStateFlow<UserState>? = null
+
+    private fun prefs(context: Context): SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+    private fun read(context: Context): UserState {
+        val p = prefs(context)
+        val name = p.getString(KEY_NAME, "Utilizador") ?: "Utilizador"
+        val email = p.getString(KEY_EMAIL, "email@exemplo.com") ?: "email@exemplo.com"
+        val historyStr = p.getString(KEY_HISTORY, "") ?: ""
+        return UserState(name, email, deserializeHistory(historyStr))
+    }
+
+    fun flow(context: Context): Flow<UserState> {
+        val current = read(context)
+        val cached = flowCache ?: MutableStateFlow(current).also { flowCache = it }
+        return cached.asStateFlow()
+    }
 
     suspend fun setProfile(context: Context, name: String, email: String) {
-        context.userDataStore.edit { prefs ->
-            prefs[KEY_NAME] = name
-            prefs[KEY_EMAIL] = email
-        }
+        val p = prefs(context)
+        p.edit().putString(KEY_NAME, name).putString(KEY_EMAIL, email).apply()
+        flowCache?.value = read(context)
     }
 
     suspend fun setHistory(context: Context, items: List<HistoryItem>) {
         val str = serializeHistory(items)
-        context.userDataStore.edit { prefs ->
-            prefs[KEY_HISTORY] = str
-        }
+        val p = prefs(context)
+        p.edit().putString(KEY_HISTORY, str).apply()
+        flowCache?.value = read(context)
     }
 
     private fun serializeHistory(items: List<HistoryItem>): String =
@@ -54,4 +60,4 @@ object UserPrefs {
         }
 }
 
-private fun ERROR.edit(function: Any) {}
+
