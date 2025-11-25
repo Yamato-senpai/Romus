@@ -34,7 +34,7 @@ data class HistoryItem(val title: String, val date: String, val amount: String)
 
 @Composable
 fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sampleHistory()) {
-    Column(modifier = modifier.fillMaxSize().padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(modifier = modifier.fillMaxSize().padding(top = 50.dp, start = 16.dp, end = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(text = "Atividades recentes", style = MaterialTheme.typography.titleSmall)
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(items) { item ->
@@ -42,10 +42,10 @@ fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sa
                     colors = CardDefaults.cardColors(containerColor = Color.White),
                     elevation = CardDefaults.cardElevation(10.dp),
                     shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
                 ) {
                     Row(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -53,7 +53,8 @@ fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sa
                             Text(item.title, fontWeight = FontWeight.SemiBold)
                             Text(item.date, color = Color(0xFF616161))
                         }
-                        Column(horizontalAlignment = Alignment.End) {
+                        Column(modifier = Modifier.weight(1f),
+                            horizontalAlignment = Alignment.End) {
                             Text(item.amount, fontWeight = FontWeight.Bold)
                             Spacer(Modifier.height(6.dp))
 

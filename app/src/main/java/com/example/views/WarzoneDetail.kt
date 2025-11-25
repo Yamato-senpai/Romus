@@ -68,7 +68,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val scope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().padding(top = 35.dp)) {
         // Cabeçalho com navegação e ações
         TopAppBar(
             title = { Text(game.title) },
@@ -136,7 +136,6 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                             Column(horizontalAlignment = Alignment.End) {
                                 Text(item.price, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(6.dp))
-                                val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
                                 Button(onClick = { selected.value = item; showSheet = true }, ) {
                                     Text("Comprar", color = Color.White)
                                 }

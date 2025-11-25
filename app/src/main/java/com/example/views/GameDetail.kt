@@ -68,7 +68,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
     val scope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().padding(top = 35.dp)) {
         // Cabeçalho com navegação e gradiente no topo
         TopAppBar(
             title = { Text(game.title) },

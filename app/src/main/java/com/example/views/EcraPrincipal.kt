@@ -91,7 +91,7 @@ fun EcraPrincipal(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding() // afasta o conteúdo da barra de status e recortes
-            .padding(top = 32.dp) // margem extra para ficar abaixo da câmera
+            .padding(top = 35.dp) // margem extra para ficar abaixo da câmera
     ) {
         // Barra superior com logo e ações
         Row(
