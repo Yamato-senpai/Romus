@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,6 +32,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,6 +64,9 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val headerGradient = Brush.verticalGradient(listOf(GradientStart, GradientEnd))
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scope = rememberCoroutineScope()
+    var showSheet by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize()) {
         // Cabeçalho com navegação e ações
@@ -128,7 +137,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                                 Text(item.price, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(6.dp))
                                 val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                                Button(onClick = { selected.value = item }, ) {
+                                Button(onClick = { selected.value = item; showSheet = true }, ) {
                                     Text("Comprar", color = Color.White)
                                 }
                             }
@@ -137,28 +146,39 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                 }
                 item { Spacer(Modifier.height(24.dp)) }
             }
-            if (selected.value != null) {
-                AlertDialog(
-                    onDismissRequest = { selected.value = null },
-                    title = { Text("Confirmar compra") },
-                    text = { Text("Comprar ${selected.value!!.title} por ${selected.value!!.price}?") },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            Toast.makeText(ctx, "Compra realizada", Toast.LENGTH_SHORT).show()
-                            onRecordPurchase(
-                                HistoryItem(
-                                    title = "Compra: ${selected.value!!.title}",
-                                    date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
-                                    amount = selected.value!!.price
-                                )
+            if (showSheet && selected.value != null) {
+                ModalBottomSheet(
+                    onDismissRequest = { showSheet = false; selected.value = null },
+                    sheetState = sheetState
+                ) {
+                    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(selected.value!!.title, style = MaterialTheme.typography.titleMedium)
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(id = game.thumbRes),
+                                contentDescription = null,
+                                modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)),
+                                contentScale = ContentScale.Crop
                             )
-                            selected.value = null
-                        }) { Text("Confirmar") }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { selected.value = null }) { Text("Cancelar") }
+                            Text(selected.value!!.subtitle, color = Color.DarkGray)
+                        }
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                            Text(selected.value!!.price, fontWeight = FontWeight.Bold)
+                            Button(onClick = {
+                                Toast.makeText(ctx, "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}", Toast.LENGTH_SHORT).show()
+                                onRecordPurchase(
+                                    HistoryItem(
+                                        title = "Compra: ${selected.value!!.title}",
+                                        date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                                        amount = selected.value!!.price
+                                    )
+                                )
+                                showSheet = false
+                                selected.value = null
+                            }) { Text("Comprar com 1-clique") }
+                        }
                     }
-                )
+                }
             }
         }
     }
