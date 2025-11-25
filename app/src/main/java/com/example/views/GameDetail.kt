@@ -178,15 +178,21 @@ private fun descriptionFor(title: String): String =
     "Fortnite é um jogo free-to-play com diversos modos e conteúdos épicos. Jogue com amigos e explore ilhas, eventos e muito mais."
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
-    Purchasable("V-Bucks 1,000", "Moeda do jogo para compras na loja.", "8,000KWZ"),
-    Purchasable("V-Bucks 2,800", "Pacote econômico de V-Bucks.", "20,000KWZ"),
-    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", "$32,500KWZ"),
-    Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", "$100,000KWZ"),
-    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", "13,550KWZ")
+    Purchasable("V-Bucks 1,000", "Moeda do jogo para compras na loja.", kwz(8000)),
+    Purchasable("V-Bucks 2,800", "Pacote econômico de V-Bucks.", kwz(20000)),
+    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", kwz(32500)),
+    Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", kwz(100000)),
+    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", kwz(13550))
 )
 
 private fun currentDateFormatted(): String =
     SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date())
+
+private fun kwz(amount: Int): String {
+    val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
+    nf.currency = java.util.Currency.getInstance("AOA")
+    return nf.format(amount)
+}
 
 @Preview(showBackground = true)
 @Composable

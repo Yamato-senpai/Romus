@@ -107,11 +107,11 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
             Text(text = "Itens disponíveis", style = MaterialTheme.typography.titleSmall)
 
             val purchasables = listOf(
-                WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", "10,000KWZ"),
-                WarzoneItem("COD Points 2,400", "Pacote popular de CP.", "23,000KWZ"),
-                WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", "40,000KWZ"),
-                WarzoneItem("COD Points 10,000", "Pacote grande para várias temporadas.", "50,000KWZ"),
-                WarzoneItem("Battle Pass", "Passe de batalha da temporada.", "11,000KWZ")
+                WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", kwz(10000)),
+                WarzoneItem("COD Points 2,400", "Pacote popular de CP.", kwz(23000)),
+                WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(40000)),
+                WarzoneItem("COD Points 10,000", "Pacote grande para várias temporadas.", kwz(50000)),
+                WarzoneItem("Battle Pass", "Passe de batalha da temporada.", kwz(11000))
             )
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(purchasables) { item ->
@@ -192,4 +192,10 @@ fun WarzoneDetailPreview() {
     RomusTheme {
         WarzoneDetail(game = GameItem("Call of Duty: Warzone", com.example.romus.R.drawable.warzone, com.example.romus.R.drawable.warzone), onBack = { })
     }
+}
+
+private fun kwz(amount: Int): String {
+    val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
+    nf.currency = java.util.Currency.getInstance("AOA")
+    return nf.format(amount)
 }
