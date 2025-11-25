@@ -41,15 +41,16 @@ import androidx.compose.material3.OutlinedTextField
 import com.example.romus.ui.theme.RomusTheme
 
 @Composable
-fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", email: String = "email@exemplo.com", onUpdateProfile: (String, String) -> Unit = { _, _ -> }) {
+fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Yamato60hz", email: String = "yamato60hz@romus.com", onUpdateProfile: (String, String) -> Unit = { _, _ -> }) {
     val showDialog = remember { mutableStateOf(false) }
     val newName = remember { mutableStateOf(name) }
     val newEmail = remember { mutableStateOf(email) }
-    Column(modifier = modifier.fillMaxSize().background(Color.White).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(
+        modifier = modifier.fillMaxSize().background(Color.White).padding(top = 40.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Card(
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(10.dp),
-            shape = RoundedCornerShape(24.dp),
+            shape = RoundedCornerShape(1.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -75,21 +76,30 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(10.dp),
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
+
         ) {
             Row(
-                modifier = Modifier.padding(30.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                modifier = Modifier.fillMaxWidth().padding(30.dp)
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.Start
+                ) {
                     Text("7", fontWeight = FontWeight.Bold)
                     Text("Usos", color = Color(0xFF616161))
                 }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text("100", fontWeight = FontWeight.Bold)
                     Text("Pontos", color = Color(0xFF616161))
                 }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.End
+                ) {
                     Text("€2.08", fontWeight = FontWeight.Bold)
                     Text("Poupado", color = Color(0xFF616161))
                 }
@@ -100,14 +110,19 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(30.dp),
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
         ) {
             Row {
                 Column(modifier = Modifier.padding(25.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text("Saldo", style = MaterialTheme.typography.titleSmall)
-                    Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                        Text("€10.00", color = Color(0xFFD32F2F), fontWeight = FontWeight.Bold)
-                        Button(onClick = { }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)), shape = RoundedCornerShape(50.dp)) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                        Text("€10.00", color = Color.Black, fontWeight = FontWeight.Bold)
+
+                        Button(
+                            onClick = { },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)),
+                            shape = RoundedCornerShape(50.dp)
+                        ) {
                             Text("Recarregar", color = Color.White)
                         }
                     }
@@ -118,25 +133,13 @@ fun PerfilScreen(modifier: Modifier = Modifier, name: String = "Utilizador", ema
 
         }
 
-        Card(
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(10.dp),
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Conquistas Recentes ", style = MaterialTheme.typography.titleSmall)
-                Box(modifier = Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(Color(0xFFF2F2F2)))
-                Text("Nenhuma conquista ainda")
-                Text("Não desista de nada", color = Color(0xFF616161))
-            }
-        }
+
 
         Button(
             onClick = { },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.fillMaxWidth()
+            shape = RoundedCornerShape(60.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 250.dp)
         ) { Text("logout", color = Color.White) }
 
         Spacer(Modifier.height(55.dp))

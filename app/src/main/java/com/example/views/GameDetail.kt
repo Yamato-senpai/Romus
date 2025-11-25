@@ -60,14 +60,15 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
     val selected = remember { mutableStateOf<Purchasable?>(null) }
 
     Column(modifier = Modifier.fillMaxSize()) {
+        // Cabeçalho com navegação e gradiente no topo
         TopAppBar(
             title = { Text(game.title) },
             navigationIcon = {
                 IconButton(onClick = onBack) {
-                    androidx.compose.material3.Text("←")
+                    Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
                 }
             },
-
+            // Cores transparentes para sobrepor conteúdo se necessário
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
         )
 

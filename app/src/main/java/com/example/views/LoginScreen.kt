@@ -46,21 +46,22 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
     val password = remember { mutableStateOf("") }
     val showPassword = remember { mutableStateOf(false) }
 
+    // Container principal da tela de login
+    // fillMaxSize: ocupa toda a área disponível
+    // background: usa a cor de fundo do tema para suportar claro/escuro
+    // padding: margem interna para não colar nas bordas
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(color = Color.White)
             .padding(24.dp)
-
-
-
-
     ) {
         Column(
             modifier = Modifier.align(Alignment.Center),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Avatar/logo superior com leve sombra
             Surface(
                 modifier = Modifier.size(80.dp),
                 shape = CircleShape,
@@ -78,6 +79,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
             Text(text = "Bem-vindo ", color = Color.Black)
             Text(text = "Faça login para continuar", color = Color.Black)
 
+            // Cartão que contém os campos de entrada
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,41 +94,44 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                     modifier = Modifier.padding(30.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // Campo de email
                     OutlinedTextField(
                         value = email.value,
                         onValueChange = { email.value = it },
-                        label = { Text("Email") },
+                        label = { Text("Email", color = Color.Black) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(30.dp)
                     )
 
+                    // Campo de senha com alternância de visibilidade
                     OutlinedTextField(
                         value = password.value,
                         onValueChange = { password.value = it },
-                        label = { Text("Senha") },
+                        label = { Text("Palavra-passe", color = Color.Black) },
                         singleLine = true,
                         visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
                         trailingIcon = {
-
+                            // Poderá ser substituído por um texto/ícone para alternar ver/ocultar
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(30.dp)
                     )
 
                     Text(
-                        text = "Esqueci minha senha",
+                        text = "Esqueci da senha",
                         color = Color.Black,
                         modifier = Modifier.align(Alignment.End).clickable { }
                     )
 
+                    // Botão com gradiente local (sem libs externas)
                     val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
                     Button(
                         onClick = { onLogin() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp)
-                            .background(btnBrush, RoundedCornerShape(30.dp)),
+                            .background(color = Color.Black, RoundedCornerShape(30.dp)),
                         enabled = true
                     ) {
                         Text("Entrar", color = Color.Black)

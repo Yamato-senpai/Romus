@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -37,21 +39,44 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
 import com.example.romus.ui.theme.RomusTheme
 
-data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int)
+import android.os.Parcel
+import android.os.Parcelable
+
+data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
+        parcel.readInt(),
+        parcel.readInt()
+    )
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(title)
+        parcel.writeInt(imageRes)
+        parcel.writeInt(thumbRes)
+    }
+    override fun describeContents(): Int = 0
+    companion object CREATOR : Parcelable.Creator<GameItem> {
+        override fun createFromParcel(parcel: Parcel): GameItem = GameItem(parcel)
+        override fun newArray(size: Int): Array<GameItem?> = arrayOfNulls(size)
+    }
+}
 
 @Composable
 fun EcraPrincipal(
     onGameClick: (GameItem) -> Unit = {},
     historyItems: List<HistoryItem> = emptyList(),
-    profileName: String = "Utilizador",
-    profileEmail: String = "email@exemplo.com",
+    profileName: String = "Fabio",
+    profileEmail: String = "fabioromulo19@romus.com",
     onUpdateProfile: (String, String) -> Unit = { _, _ -> }
 ) {
+    // Estado da aba selecionada
     var selectedTab by remember { mutableIntStateOf(0) }
+    // Lista de jogos exibidos na secção "Destaques"
     val items = listOf(
         GameItem("Fortnite",
             R.drawable.fortnite1,
@@ -60,12 +85,15 @@ fun EcraPrincipal(
             R.drawable.warzone1,
             R.drawable.warzone)
     )
+    val ctx = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 0.dp)
+            .statusBarsPadding() // afasta o conteúdo da barra de status e recortes
+            .padding(top = 32.dp) // margem extra para ficar abaixo da câmera
     ) {
+        // Barra superior com logo e ações
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,15 +109,15 @@ fun EcraPrincipal(
                 )
             }
             Text(text = "Romus", style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f)) // empurra ações para a direita
             Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                    Text("🔔")
+                    Icon(painter = painterResource(id = R.drawable.ic_bell), contentDescription = null)
                 }
             }
             Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
                 Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                    Text("⚙")
+                    Icon(painter = painterResource(id = R.drawable.ic_more_vert), contentDescription = null)
                 }
             }
         }
@@ -109,7 +137,13 @@ fun EcraPrincipal(
                             shape = RoundedCornerShape(24.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { onGameClick(game) }
+                                .clickable {
+                                    val intent = com.example.romus.GameDetailActivity.newIntent(
+                                        activity = (ctx as androidx.activity.ComponentActivity),
+                                        item = game
+                                    )
+                                    ctx.startActivity(intent)
+                                }
                         ) {
                             Column {
                                 Image(
@@ -159,19 +193,19 @@ fun EcraPrincipal(
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
                 label = { Text("Destaques") },
-                icon = { Text("★") }
+                icon = { Icon(painter = painterResource(id = R.drawable.ic_star), contentDescription = null) }
             )
             NavigationBarItem(
                 selected = selectedTab == 1,
                 onClick = { selectedTab = 1 },
                 label = { Text("Histórico") },
-                icon = { Text("🕓") }
+                icon = { Icon(painter = painterResource(id = R.drawable.ic_clock), contentDescription = null) }
             )
             NavigationBarItem(
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2 },
-                label = { Text("Player") },
-                icon = { Text("👤") }
+                label = { Text("Perfil") },
+                icon = { Icon(painter = painterResource(id = R.drawable.ic_person), contentDescription = null) }
             )
         }
     }
