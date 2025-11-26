@@ -78,7 +78,7 @@ fun PerfilScreen(
                         }
                         Column(modifier = Modifier.weight(1f)) {
                             Text(name, fontWeight = FontWeight.SemiBold)
-                            Text(email, color = Color(0xFF616161))
+                            Text(email, color = Color.Black)
                         }
 
                     }
@@ -102,21 +102,21 @@ fun PerfilScreen(
                             horizontalAlignment = Alignment.Start
                         ) {
                             Text("7", fontWeight = FontWeight.Bold)
-                            Text("Usos", color = Color(0xFF616161))
+                            Text("Usos", color = Color.Black)
                         }
                         Column(
                             modifier = Modifier.weight(1f),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text("100", fontWeight = FontWeight.Bold)
-                            Text("Pontos", color = Color(0xFF616161))
+                            Text("Pontos", color = Color.Black)
                         }
                         Column(
                             modifier = Modifier.weight(1f),
                             horizontalAlignment = Alignment.End
                         ) {
                             Text("€2.08", fontWeight = FontWeight.Bold)
-                            Text("Poupado", color = Color(0xFF616161))
+                            Text("Poupado", color = Color.Black)
                         }
                     }
                 }
