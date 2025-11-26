@@ -1,4 +1,4 @@
-package com.example.romus
+package com.example.romus.controller
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +15,6 @@ import com.example.views.GameItem
 import com.example.views.HistoryItem
 import com.example.views.WarzoneDetail
 import kotlinx.coroutines.launch
-import com.example.romus.data.UserPrefs
 
 class GameDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +41,12 @@ class GameDetailActivity : ComponentActivity() {
                         onBack = { finish() },
                         onRecordPurchase = { item ->
                             historyItems.add(0, item)
-                            scope.launch { UserPrefs.setHistory(this@GameDetailActivity, historyItems.toList()) }
+                            scope.launch {
+                                UserPrefs.setHistory(
+                                    this@GameDetailActivity,
+                                    historyItems.toList()
+                                )
+                            }
                         }
                     )
                 } else {
@@ -51,7 +55,12 @@ class GameDetailActivity : ComponentActivity() {
                         onBack = { finish() },
                         onRecordPurchase = { item ->
                             historyItems.add(0, item)
-                            scope.launch { UserPrefs.setHistory(this@GameDetailActivity, historyItems.toList()) }
+                            scope.launch {
+                                UserPrefs.setHistory(
+                                    this@GameDetailActivity,
+                                    historyItems.toList()
+                                )
+                            }
                         }
                     )
                 }
@@ -66,4 +75,3 @@ class GameDetailActivity : ComponentActivity() {
             Intent(activity, GameDetailActivity::class.java).putExtra(EXTRA_GAME, item)
     }
 }
-

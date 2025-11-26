@@ -19,7 +19,7 @@ import com.example.views.HistoryItem
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
-import com.example.romus.data.UserPrefs
+import com.example.romus.controller.UserPrefs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

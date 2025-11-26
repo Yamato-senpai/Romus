@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameDetailActivity"
+            android:name=".controller.GameDetailActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Theme.Romus" />

@@ -39,8 +39,7 @@ android {
     }
 }
 
-    // Dependências do módulo app. Mantemos apenas o que vem no template
-    // do Android Studio para cumprir o requisito de não usar bibliotecas externas.
+   
     dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -50,7 +49,7 @@ android {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-        implementation(libs.androidx.material3) // Material3 padrão do template
+        implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -69,7 +69,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
     var showSheet by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize().padding(top = 35.dp)) {
-        // Cabeçalho com navegação e gradiente no topo
+
         TopAppBar(
             title = { Text(game.title) },
             navigationIcon = {
@@ -77,7 +77,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                     Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
                 }
             },
-            // Cores transparentes para sobrepor conteúdo se necessário
+
             colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
         )
 
@@ -110,12 +110,18 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                         elevation = CardDefaults.cardElevation(12.dp),
                         shape = RoundedCornerShape(20.dp),
                         modifier = Modifier.fillMaxWidth()
+
                     ) {
                         Row(
-                            modifier = Modifier.padding(16.dp),
+                            modifier = Modifier.padding(20.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
+                            Image(
+                                painter = painterResource(id = com.example.romus.R.drawable.vbucks),
+                                contentDescription = "",
+                                modifier = Modifier.size(70.dp)
+                            )
 
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(item.title, fontWeight = FontWeight.SemiBold)
@@ -178,11 +184,10 @@ private fun descriptionFor(title: String): String =
     "Fortnite é um jogo free-to-play com diversos modos e conteúdos épicos. Jogue com amigos e explore ilhas, eventos e muito mais."
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
-    Purchasable("V-Bucks 1,000", "Moeda do jogo para compras na loja.", kwz(8000)),
-    Purchasable("V-Bucks 2,800", "Pacote econômico de V-Bucks.", kwz(20000)),
-    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", kwz(32500)),
-    Purchasable("V-Bucks 13,500", "Pacote grande para coleções completas.", kwz(100000)),
-    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", kwz(13550))
+    Purchasable("Minty píckaxe", "Moeda do jogo para compras na loja.", kwz(117000)),
+    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", kwz(5200)),
+    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", kwz(13550)),
+
 )
 
 private fun currentDateFormatted(): String =

@@ -1,4 +1,4 @@
-package com.example.romus.data
+package com.example.romus.controller
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /** Representa o estado do utilizador persistido localmente */
-data class UserState(val name: String, val email: String, val history: List<HistoryItem>)
+data class UserState(
+    val name: String,
+    val email: String,
+    val history: List<HistoryItem>)
 
 /**
  * Armazena e recupera dados de perfil e histórico usando SharedPreferences
@@ -43,14 +46,14 @@ object UserPrefs {
     }
 
     /** Atualiza nome e email nas preferências e emite novo estado */
-    suspend fun setProfile(context: Context, name: String, email: String) {
+     fun setProfile(context: Context, name: String, email: String) {
         val p = prefs(context)
         p.edit().putString(KEY_NAME, name).putString(KEY_EMAIL, email).apply()
         flowCache?.value = read(context)
     }
 
     /** Persiste a lista de compras/histórico e emite novo estado */
-    suspend fun setHistory(context: Context, items: List<HistoryItem>) {
+     fun setHistory(context: Context, items: List<HistoryItem>) {
         val str = serializeHistory(items)
         val p = prefs(context)
         p.edit().putString(KEY_HISTORY, str).apply()
