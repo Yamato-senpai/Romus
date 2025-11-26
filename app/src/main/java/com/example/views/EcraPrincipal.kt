@@ -91,166 +91,171 @@ fun EcraPrincipal(
     )
     val ctx = LocalContext.current
 
+    Scaffold { innerPadding ->
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .padding(16.dp)
-    ) {
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
-                    Image(
-                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
-                        contentDescription = null,
-                        modifier = Modifier.size(36.dp)
-                    )
-                }
-                Text(text = "Romus", style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.weight(1f)) // empurra ações para a direita
-                Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
-                    Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_bell),
-                            contentDescription = null
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .padding(innerPadding)
+        ) {
+            Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
+                        Image(
+                            painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                            contentDescription = null,
+                            modifier = Modifier.size(36.dp)
                         )
                     }
-                }
-                Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
-                    Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_more_vert),
-                            contentDescription = null
-                        )
+                    Text(text = "Romus", style = MaterialTheme.typography.titleMedium)
+                    Spacer(modifier = Modifier.weight(1f)) // empurra ações para a direita
+                    Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
+                        Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_bell),
+                                contentDescription = null
+                            )
+                        }
+                    }
+                    Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
+                        Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_more_vert),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
-            }
 
-            when (selectedTab) {
-                0 -> {
-                    LazyColumn(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(horizontal = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(items) { game ->
-                            Card(
-                                colors = CardDefaults.cardColors(containerColor = Color.White),
-                                elevation = CardDefaults.cardElevation(10.dp),
-                                shape = RoundedCornerShape(24.dp),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        val intent = GameDetailActivity.newIntent(
-                                            activity = (ctx as androidx.activity.ComponentActivity),
-                                            item = game
-                                        )
-                                        ctx.startActivity(intent)
-                                    }
-                            ) {
-                                Column {
-                                    Image(
-                                        painter = painterResource(id = game.imageRes),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(200.dp)
-                                            .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
-                                        contentScale = ContentScale.Crop
-                                    )
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(16.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.SpaceBetween
-                                    ) {
-                                        Row(
-                                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Surface(
-                                                shape = RoundedCornerShape(8.dp),
-                                                color = Color(0xFFF2F2F2)
-                                            ) {
-                                                Image(
-                                                    painter = painterResource(id = game.thumbRes),
-                                                    contentDescription = null,
-                                                    modifier = Modifier.size(30.dp)
-                                                )
-                                            }
-                                            Text(text = game.title)
+                when (selectedTab) {
+                    0 -> {
+                        LazyColumn(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            items(items) { game ->
+                                Card(
+                                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                                    elevation = CardDefaults.cardElevation(10.dp),
+                                    shape = RoundedCornerShape(24.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            val intent = GameDetailActivity.newIntent(
+                                                activity = (ctx as androidx.activity.ComponentActivity),
+                                                item = game
+                                            )
+                                            ctx.startActivity(intent)
                                         }
+                                ) {
+                                    Column {
+                                        Image(
+                                            painter = painterResource(id = game.imageRes),
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(200.dp)
+                                                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
+                                            contentScale = ContentScale.Crop
+                                        )
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(16.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Row(
+                                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Surface(
+                                                    shape = RoundedCornerShape(8.dp),
+                                                    color = Color(0xFFF2F2F2)
+                                                ) {
+                                                    Image(
+                                                        painter = painterResource(id = game.thumbRes),
+                                                        contentDescription = null,
+                                                        modifier = Modifier.size(30.dp)
+                                                    )
+                                                }
+                                                Text(text = game.title)
+                                            }
 
+                                        }
                                     }
                                 }
                             }
+                            item { Spacer(Modifier.height(72.dp)) }
                         }
-                        item { Spacer(Modifier.height(72.dp)) }
+                    }
+
+                    1 -> {
+                        HistoricoScreen(modifier = Modifier.weight(1f), items = historyItems)
+                    }
+
+                    2 -> {
+                        PerfilScreen(
+                            modifier = Modifier.weight(1f),
+                            name = profileName,
+                            email = profileEmail,
+                            onUpdateProfile = onUpdateProfile
+                        )
                     }
                 }
 
-                1 -> {
-                    HistoricoScreen(modifier = Modifier.weight(1f), items = historyItems)
-                }
-
-                2 -> {
-                    PerfilScreen(
-                        modifier = Modifier.weight(1f),
-                        name = profileName,
-                        email = profileEmail,
-                        onUpdateProfile = onUpdateProfile
+                NavigationBar(containerColor = Color.White) {
+                    NavigationBarItem(
+                        selected = selectedTab == 0,
+                        onClick = { selectedTab = 0 },
+                        label = { Text("Destaques") },
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_star),
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    NavigationBarItem(
+                        selected = selectedTab == 1,
+                        onClick = { selectedTab = 1 },
+                        label = { Text("Histórico") },
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_clock),
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    NavigationBarItem(
+                        selected = selectedTab == 2,
+                        onClick = { selectedTab = 2 },
+                        label = { Text("Perfil") },
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_person),
+                                contentDescription = null
+                            )
+                        }
                     )
                 }
             }
-
-            NavigationBar(containerColor = Color.White) {
-                NavigationBarItem(
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 },
-                    label = { Text("Destaques") },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_star),
-                            contentDescription = null
-                        )
-                    }
-                )
-                NavigationBarItem(
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 },
-                    label = { Text("Histórico") },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_clock),
-                            contentDescription = null
-                        )
-                    }
-                )
-                NavigationBarItem(
-                    selected = selectedTab == 2,
-                    onClick = { selectedTab = 2 },
-                    label = { Text("Perfil") },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_person),
-                            contentDescription = null
-                        )
-                    }
-                )
-            }
         }
     }
-        }
+
+    }
+
+
+
 
 
 @Preview(showBackground = true)

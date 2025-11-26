@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -61,124 +62,131 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val scope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize().padding(top = 35.dp)) {
-        // Cabeçalho com navegação e ações
-        TopAppBar(
-            title = { Text(game.title) },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
-                }
-            },
-            actions = {
-                IconButton(onClick = { }) {
-                    Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_heart), contentDescription = null)
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
-        )
+    Scaffold { innerPadding ->
+        Column {
 
 
-
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = game.thumbRes),
-                    contentDescription = null,
-                    modifier = Modifier.size(80.dp).clip(RoundedCornerShape(16.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = "Warzone traz combate intenso com modos competitivos e experiências cinematográficas.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.DarkGray,
-                    maxLines = 5,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            Text(text = "Itens disponíveis", style = MaterialTheme.typography.titleSmall)
-
-            val purchasables = listOf(
-                WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", kwz(10000)),
-                WarzoneItem("COD Points 2,400", "Pacote popular de CP.", kwz(23000)),
-                WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(40000)),
-                WarzoneItem("COD Points 10,000", "Pacote grande para várias temporadas.", kwz(50000)),
-                WarzoneItem("Battle Pass", "Passe de batalha da temporada.", kwz(11000))
-            )
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(purchasables) { item ->
-                    Card(
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                        elevation = CardDefaults.cardElevation(12.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(id = com.example.romus.R.drawable.cod),
-                                contentDescription = "",
-                            )
-
-                            Column(modifier = Modifier.weight(1f)) {
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Text(item.title, fontWeight = FontWeight.SemiBold)
-                                }
-                                Text(item.subtitle, color = Color(0xFF616161), maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
-                            Column(horizontalAlignment = Alignment.End) {
-                                Text(item.price, fontWeight = FontWeight.Bold)
-                                Spacer(Modifier.height(6.dp))
-                                Button(onClick = { selected.value = item; showSheet = true }, ) {
-                                    Text("Comprar", color = Color.White)
-                                }
-                            }
+            Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+                // Cabeçalho com navegação e ações
+                TopAppBar(
+                    title = { Text(game.title) },
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
                         }
+                    },
+                    actions = {
+                        IconButton(onClick = { }) {
+                            Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_heart), contentDescription = null)
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+                )
+
+
+
+                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(id = game.thumbRes),
+                            contentDescription = null,
+                            modifier = Modifier.size(80.dp).clip(RoundedCornerShape(16.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                        Text(
+                            text = "Warzone traz combate intenso com modos competitivos e experiências cinematográficas.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.DarkGray,
+                            maxLines = 5,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
-                }
-                item { Spacer(Modifier.height(24.dp)) }
-            }
-            if (showSheet && selected.value != null) {
-                ModalBottomSheet(
-                    onDismissRequest = { showSheet = false; selected.value = null },
-                    sheetState = sheetState
-                ) {
-                    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text(selected.value!!.title, style = MaterialTheme.typography.titleMedium)
-                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Image(
-                                painter = painterResource(id = game.thumbRes),
-                                contentDescription = null,
-                                modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-                            Text(selected.value!!.subtitle, color = Color.DarkGray)
-                        }
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                            Text(selected.value!!.price, fontWeight = FontWeight.Bold)
-                            Button(onClick = {
-                                Toast.makeText(ctx, "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}", Toast.LENGTH_SHORT).show()
-                                onRecordPurchase(
-                                    HistoryItem(
-                                        title = "Compra: ${selected.value!!.title}",
-                                        date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
-                                        amount = selected.value!!.price
+
+                    Text(text = "Itens disponíveis", style = MaterialTheme.typography.titleSmall)
+
+                    val purchasables = listOf(
+                        WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", kwz(10000)),
+                        WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(40000)),
+                        WarzoneItem("Battle Pass", "Passe de batalha da temporada.", kwz(11000))
+                    )
+                    LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        items(purchasables) { item ->
+                            Card(
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                elevation = CardDefaults.cardElevation(12.dp),
+                                shape = RoundedCornerShape(20.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    Image(
+                                        painter = painterResource(id = com.example.romus.R.drawable.cod),
+                                        contentDescription = "",
                                     )
-                                )
-                                showSheet = false
-                                selected.value = null
-                            }) { Text("Comprar com 1-clique") }
+
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                            Text(item.title, fontWeight = FontWeight.SemiBold)
+                                        }
+                                        Text(item.subtitle, color = Color(0xFF616161), maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                    }
+                                    Column(horizontalAlignment = Alignment.End) {
+                                        Text(item.price, fontWeight = FontWeight.Bold)
+                                        Spacer(Modifier.height(6.dp))
+                                        Button(onClick = { selected.value = item; showSheet = true }, ) {
+                                            Text("Comprar", color = Color.White)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        item { Spacer(Modifier.height(24.dp)) }
+                    }
+                    if (showSheet && selected.value != null) {
+                        ModalBottomSheet(
+                            onDismissRequest = { showSheet = false; selected.value = null },
+                            sheetState = sheetState
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text(selected.value!!.title, style = MaterialTheme.typography.titleMedium)
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                    Image(
+                                        painter = painterResource(id = game.thumbRes),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    Text(selected.value!!.subtitle, color = Color.DarkGray)
+                                }
+                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                                    Text(selected.value!!.price, fontWeight = FontWeight.Bold)
+                                    Button(onClick = {
+                                        Toast.makeText(ctx, "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}", Toast.LENGTH_SHORT).show()
+                                        onRecordPurchase(
+                                            HistoryItem(
+                                                title = "Compra: ${selected.value!!.title}",
+                                                date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                                                amount = selected.value!!.price
+                                            )
+                                        )
+                                        showSheet = false
+                                        selected.value = null
+                                    }) { Text("Comprar com 1-clique") }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
+    }
+
+
+
 
 data class WarzoneItem(val title: String, val subtitle: String, val price: String)
 
