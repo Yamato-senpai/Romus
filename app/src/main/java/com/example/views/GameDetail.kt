@@ -61,7 +61,7 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryItem) -> Unit = {}) {
-    val headerGradient = Brush.verticalGradient(listOf(GradientStart, GradientEnd))
+
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<Purchasable?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -130,8 +130,8 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                             Column(horizontalAlignment = Alignment.End) {
                                 Text(item.price, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(6.dp))
-                                val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                                Button(onClick = { selected.value = item; showSheet = true },) {
+
+                                Button(onClick = { selected.value = item; showSheet = true }) {
                                     Text("Comprar", color = Color.White)
                                 }
                             }
@@ -206,3 +206,4 @@ fun GameDetailPreview() {
         GameDetail(game = GameItem("Fortnite", com.example.romus.R.drawable.fortnite1, com.example.romus.R.drawable.fortnite), onBack = { })
     }
 }
+

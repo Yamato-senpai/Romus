@@ -52,7 +52,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Avatar/logo superior com leve sombra
+
             Surface(
                 modifier = Modifier.size(80.dp),
                 shape = CircleShape,
@@ -70,7 +70,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
             Text(text = "Bem-vindo ", color = Color.Black)
             Text(text = "Faça login para continuar", color = Color.Black)
 
-            // Cartão que contém os campos de entrada
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -85,7 +85,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                     modifier = Modifier.padding(30.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Campo de email
+
                     OutlinedTextField(
                         value = email.value,
                         onValueChange = { email.value = it },
@@ -95,7 +95,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                         shape = RoundedCornerShape(30.dp)
                     )
 
-                    // Campo de senha com alternância de visibilidade
+
                     OutlinedTextField(
                         value = password.value,
                         onValueChange = { password.value = it },
