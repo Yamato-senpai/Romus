@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material3.Surface
 import androidx.compose.material3.MaterialTheme
 import com.example.views.EcraPrincipal
-import com.example.romus.model.GameItem
 import com.example.romus.model.HistoryItem
 import com.example.views.LoginScreen
 import com.example.romus.controller.UserPrefs
@@ -20,7 +19,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun RomusApp() {
     val loggedIn = remember { mutableStateOf(true) }
-    val selectedGame = remember { mutableStateOf<GameItem?>(null) }
     val historyItems = remember { mutableStateListOf<HistoryItem>() }
     val userName = remember { mutableStateOf("Utilizador") }
     val userEmail = remember { mutableStateOf("email@exemplo.com") }
