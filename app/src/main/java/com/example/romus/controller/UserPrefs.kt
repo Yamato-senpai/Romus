@@ -2,7 +2,7 @@ package com.example.romus.controller
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.views.HistoryItem
+import com.example.romus.model.HistoryItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

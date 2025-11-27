@@ -10,12 +10,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material3.Surface
 import androidx.compose.material3.MaterialTheme
 import com.example.views.EcraPrincipal
-import com.example.views.GameDetail
-import com.example.views.GameItem
-import com.example.views.HistoryItem
+import com.example.romus.model.GameItem
+import com.example.romus.model.HistoryItem
 import com.example.views.LoginScreen
-import com.example.views.WarzoneDetail
 import com.example.romus.controller.UserPrefs
+import com.example.romus.controller.GameDetailActivity
 import kotlinx.coroutines.launch
 
 @Composable
@@ -40,37 +39,15 @@ fun RomusApp() {
     Surface(color = MaterialTheme.colorScheme.background) {
         if (!loggedIn.value) {
             LoginScreen(onLogin = { loggedIn.value = true })
-        } else if (selectedGame.value != null && selectedGame.value!!.title.contains("Fortnite", ignoreCase = true)) {
-            GameDetail(
-                game = selectedGame.value!!,
-                onBack = { selectedGame.value = null },
-                onRecordPurchase = { item ->
-                    historyItems.add(0, item)
-                    scope.launch { UserPrefs.setHistory(ctx, historyItems.toList()) }
-                }
-            )
-        } else if (selectedGame.value != null && selectedGame.value!!.title.contains("Warzone", ignoreCase = true)) {
-            WarzoneDetail(
-                game = selectedGame.value!!,
-                onBack = { selectedGame.value = null },
-                onRecordPurchase = { item ->
-                    historyItems.add(0, item)
-                    scope.launch { UserPrefs.setHistory(ctx, historyItems.toList()) }
-                }
-            )
         } else {
             EcraPrincipal(
                 onGameClick = { game ->
-                    if (game.title.contains("Fortnite", ignoreCase = true) ||
-                        game.title.contains("Warzone", ignoreCase = true)
-                    ) {
-                        selectedGame.value = game
-                    }
+                    val activity = ctx as androidx.activity.ComponentActivity
+                    activity.startActivity(GameDetailActivity.newIntent(activity, game))
                 },
                 historyItems = historyItems,
                 profileName = userName.value,
-                profileEmail = userEmail.value,
-
+                profileEmail = userEmail.value
             )
         }
     }

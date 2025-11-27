@@ -10,10 +10,10 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.example.romus.ui.theme.RomusTheme
-import com.example.views.GameDetail
-import com.example.views.GameItem
-import com.example.views.HistoryItem
+import com.example.views.FortniteDetail
 import com.example.views.WarzoneDetail
+import com.example.romus.model.GameItem
+import com.example.romus.model.HistoryItem
 import kotlinx.coroutines.launch
 
 class GameDetailActivity : ComponentActivity() {
@@ -50,7 +50,7 @@ class GameDetailActivity : ComponentActivity() {
                         }
                     )
                 } else {
-                    GameDetail(
+                    FortniteDetail(
                         game = game,
                         onBack = { finish() },
                         onRecordPurchase = { item ->

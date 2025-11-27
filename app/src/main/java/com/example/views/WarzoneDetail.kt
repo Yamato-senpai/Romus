@@ -48,6 +48,8 @@ import androidx.compose.ui.unit.dp
 import com.example.romus.ui.theme.GradientEnd
 import com.example.romus.ui.theme.GradientStart
 import com.example.romus.ui.theme.RomusTheme
+import com.example.romus.model.HistoryItem
+import com.example.romus.model.GameItem
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

@@ -42,28 +42,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
+import com.example.romus.model.GameItem
+import com.example.romus.model.HistoryItem
 import com.example.romus.ui.theme.RomusTheme
 
-data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readInt(),
-        parcel.readInt()
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
-        parcel.writeInt(imageRes)
-        parcel.writeInt(thumbRes)
-    }
-
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<GameItem> {
-        override fun createFromParcel(parcel: Parcel): GameItem = GameItem(parcel)
-        override fun newArray(size: Int): Array<GameItem?> = arrayOfNulls(size)
-    }
-}
+// GameItem movido para com.example.romus.model
 
 @Composable
 fun EcraPrincipal(

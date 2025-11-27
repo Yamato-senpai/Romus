@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.romus.ui.theme.RomusTheme
-data class HistoryItem(val title: String, val date: String, val amount: String)
+import com.example.romus.model.HistoryItem
 
 @Composable
 fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sampleHistory()) {
