@@ -119,7 +119,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp)
-                            .background(color = Color.Black, RoundedCornerShape(30.dp)),
+                            .background(color = Color(0xFF8A00FF), RoundedCornerShape(30.dp)),
                         enabled = true
                     ) {
                         Text("Entrar", color = Color.Black)

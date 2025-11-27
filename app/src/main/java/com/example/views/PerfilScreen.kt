@@ -1,6 +1,6 @@
 package com.example.views
 
-import android.annotation.SuppressLint
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,11 +38,10 @@ fun PerfilScreen(
     modifier: Modifier = Modifier,
     name: String = "Yamato60hz",
     email: String = "yamato60hz@romus.com",
-    onUpdateProfile: (String, String) -> Unit = { _, _ -> }
-) {
-    val showDialog = remember { mutableStateOf(false) }
-    val newName = remember { mutableStateOf(name) }
-    val newEmail = remember { mutableStateOf(email) }
+
+    ) {
+
+
 
     Scaffold { innerPadding ->
 
@@ -146,7 +143,7 @@ fun PerfilScreen(
                                     onClick = { },
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(
-                                            0xFF7C4DFF
+                                            0xFF8A00FF
                                         )
                                     ),
                                     shape = RoundedCornerShape(50.dp)
@@ -166,7 +163,7 @@ fun PerfilScreen(
 
             Button(
                 onClick = { },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8A00FF)),
                 shape = RoundedCornerShape(60.dp),
                 modifier = Modifier.fillMaxWidth()
             ) { Text("logout", color = Color.White) }
@@ -180,7 +177,7 @@ fun PerfilScreen(
 @Preview(showBackground = true)
 @Composable
 fun PerfilPreview() {
-    RomusTheme(darkTheme = true, dynamicColor = false) {
+    RomusTheme {
         PerfilScreen()
     }
 }

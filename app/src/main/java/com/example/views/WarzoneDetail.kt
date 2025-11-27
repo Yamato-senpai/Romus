@@ -55,7 +55,7 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryItem) -> Unit = {}) {
-    val headerGradient = Brush.verticalGradient(listOf(GradientStart, GradientEnd))
+
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -190,16 +190,17 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
 
 data class WarzoneItem(val title: String, val subtitle: String, val price: String)
 
+
+private fun kwz(amount: Int): String {
+    val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
+    nf.currency = java.util.Currency.getInstance("AOA")
+    return nf.format(amount)
+}
+
 @Preview(showBackground = true)
 @Composable
 fun WarzoneDetailPreview() {
     RomusTheme {
         WarzoneDetail(game = GameItem("Call of Duty: Warzone", com.example.romus.R.drawable.warzone, com.example.romus.R.drawable.warzone), onBack = { })
     }
-}
-
-private fun kwz(amount: Int): String {
-    val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
-    nf.currency = java.util.Currency.getInstance("AOA")
-    return nf.format(amount)
 }

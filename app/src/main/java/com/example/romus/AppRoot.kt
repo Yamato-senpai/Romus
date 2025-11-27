@@ -70,14 +70,7 @@ fun RomusApp() {
                 historyItems = historyItems,
                 profileName = userName.value,
                 profileEmail = userEmail.value,
-                onUpdateProfile = { name, email ->
-                    userName.value = name
-                    userEmail.value = email
-                    scope.launch {
-                        UserPrefs.setProfile(ctx, name, email)
-                        UserPrefs.setHistory(ctx, historyItems.toList())
-                    }
-                }
+
             )
         }
     }

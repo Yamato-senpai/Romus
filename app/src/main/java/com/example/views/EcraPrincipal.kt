@@ -71,7 +71,7 @@ fun EcraPrincipal(
     historyItems: List<HistoryItem> = emptyList(),
     profileName: String = "Fabio",
     profileEmail: String = "fabioromulo19@romus.com",
-    onUpdateProfile: (String, String) -> Unit = { _, _ -> }
+
 ) {
 
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -202,8 +202,7 @@ fun EcraPrincipal(
                         PerfilScreen(
                             modifier = Modifier.weight(1f),
                             name = profileName,
-                            email = profileEmail,
-                            onUpdateProfile = onUpdateProfile
+                            email = profileEmail
                         )
                     }
                 }
