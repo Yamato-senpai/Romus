@@ -25,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,15 +87,13 @@ fun EcraPrincipal(
             R.drawable.warzone
         )
     )
-    val ctx = LocalContext.current
-
-    Scaffold { innerPadding ->
+    LocalContext.current
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(innerPadding)
+                .padding(top = 50.dp)
         ) {
             Column {
                 Row(
@@ -157,7 +154,12 @@ fun EcraPrincipal(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .height(200.dp)
-                                                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
+                                                .clip(
+                                                    RoundedCornerShape(
+                                                        topStart = 24.dp,
+                                                        topEnd = 24.dp
+                                                    )
+                                                ),
                                             contentScale = ContentScale.Crop
                                         )
                                         Row(
@@ -243,7 +245,7 @@ fun EcraPrincipal(
                 }
             }
         }
-    }
+
 
     }
 
