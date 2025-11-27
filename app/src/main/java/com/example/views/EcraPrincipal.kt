@@ -43,7 +43,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
-import com.example.romus.controller.GameDetailActivity
 import com.example.romus.ui.theme.RomusTheme
 
 data class GameItem(val title: String, val imageRes: Int, val thumbRes: Int) : Parcelable {
@@ -149,13 +148,7 @@ fun EcraPrincipal(
                                     shape = RoundedCornerShape(24.dp),
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .clickable {
-                                            val intent = GameDetailActivity.newIntent(
-                                                activity = (ctx as androidx.activity.ComponentActivity),
-                                                item = game
-                                            )
-                                            ctx.startActivity(intent)
-                                        }
+                                        .clickable { onGameClick(game) }
                                 ) {
                                     Column {
                                         Image(

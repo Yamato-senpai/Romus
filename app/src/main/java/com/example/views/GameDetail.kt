@@ -184,9 +184,9 @@ private fun descriptionFor(title: String): String =
     "Fortnite é um jogo free-to-play com diversos modos e conteúdos épicos. Jogue com amigos e explore ilhas, eventos e muito mais."
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
-    Purchasable("Minty píckaxe", "Moeda do jogo para compras na loja.", kwz(117000)),
-    Purchasable("V-Bucks 5,000", "Pacote intermediário para skins e itens.", kwz(5200)),
-    Purchasable("Battle Pass", "Passe de batalha da temporada 5.", kwz(13550)),
+    Purchasable("V-Bucks 12,500", "Pacote especial", kwz(117000)),
+    Purchasable("V-Bucks 5,000", "Pacote intermediário com skin", kwz(5200)),
+    Purchasable("V-bucks 10,000", "Pacote base da temporada", kwz(13550)),
 
 )
 

@@ -43,10 +43,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
     val password = remember { mutableStateOf("") }
     val showPassword = remember { mutableStateOf(false) }
 
-    // Container principal da tela de login
-    // fillMaxSize: ocupa toda a área disponível
-    // background: usa a cor de fundo do tema para suportar claro/escuro
-    // padding: margem interna para não colar nas bordas
+
     Box(
         modifier = Modifier
             .fillMaxSize()

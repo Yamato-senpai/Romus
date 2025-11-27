@@ -107,7 +107,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                     val purchasables = listOf(
                         WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", kwz(10000)),
                         WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(40000)),
-                        WarzoneItem("Battle Pass", "Passe de batalha da temporada.", kwz(11000))
+                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz(11000))
                     )
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->
