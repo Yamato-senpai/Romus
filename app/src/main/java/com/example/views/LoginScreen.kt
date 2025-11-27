@@ -105,9 +105,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                         label = { Text("Palavra-passe", color = Color.Black) },
                         singleLine = true,
                         visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
-                        trailingIcon = {
-                            // Poderá ser substituído por um texto/ícone para alternar ver/ocultar
-                        },
+
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(30.dp)
                     )
@@ -118,8 +116,7 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
                         modifier = Modifier.align(Alignment.End).clickable { }
                     )
 
-                    // Botão com gradiente local (sem libs externas)
-                    val btnBrush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
+
                     Button(
                         onClick = { onLogin() },
                         modifier = Modifier
