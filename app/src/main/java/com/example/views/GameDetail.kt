@@ -144,6 +144,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                     onDismissRequest = { showSheet = false; selected.value = null },
                     sheetState = sheetState
                 ) {
+                    androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(selected.value!!.title, style = MaterialTheme.typography.titleMedium)
                         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -166,7 +167,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                                         amount = selected.value!!.price
                                     )
                                 )
-                                showSheet = true
+                                showSheet = false
                                 selected.value = null
 
                             }) { Text("Comprar com 1-clique") }
@@ -181,7 +182,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
 data class Purchasable(val title: String, val subtitle: String, val price: String)
 
 private fun descriptionFor(title: String): String =
-    "Fortnite é um Battlhe com vários modos como Solo, Duo, Trio, Squad e Criativo. Jogue com amigos e os amasse, SHITT OONN"
+    "Fortnite é um Battle Royale com vários modos como Solo, Duo, Trio, Squad e Criativo. Jogue com amigos e os amasse, SHITT OONN"
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
     Purchasable("V-Bucks 12,500", "Pacote especial", kwz(117000)),

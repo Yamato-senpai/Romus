@@ -60,7 +60,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
-    var showSheet by remember { mutableStateOf(true) }
+    var showSheet by remember { mutableStateOf(false) }
 
     Scaffold { innerPadding ->
         Column {
@@ -147,9 +147,10 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                     }
                     if (showSheet && selected.value != null) {
                         ModalBottomSheet(
-                            onDismissRequest = { showSheet = true; selected.value = null },
+                            onDismissRequest = { showSheet = false; selected.value = null },
                             sheetState = sheetState
                         ) {
+                            androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
                             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Text(selected.value!!.title, style = MaterialTheme.typography.titleMedium)
                                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -172,7 +173,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                                                 amount = selected.value!!.price
                                             )
                                         )
-                                        showSheet = true
+                                        showSheet = false
                                         selected.value = null
                                     }) { Text("Comprar com 1-clique") }
                                 }
