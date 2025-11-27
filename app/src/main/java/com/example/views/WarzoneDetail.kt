@@ -60,7 +60,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
-    var showSheet by remember { mutableStateOf(false) }
+    var showSheet by remember { mutableStateOf(true) }
 
     Scaffold { innerPadding ->
         Column {
@@ -147,7 +147,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                     }
                     if (showSheet && selected.value != null) {
                         ModalBottomSheet(
-                            onDismissRequest = { showSheet = false; selected.value = null },
+                            onDismissRequest = { showSheet = true; selected.value = null },
                             sheetState = sheetState
                         ) {
                             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -172,7 +172,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                                                 amount = selected.value!!.price
                                             )
                                         )
-                                        showSheet = false
+                                        showSheet = true
                                         selected.value = null
                                     }) { Text("Comprar com 1-clique") }
                                 }

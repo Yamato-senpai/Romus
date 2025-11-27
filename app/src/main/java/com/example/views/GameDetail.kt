@@ -166,8 +166,9 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
                                         amount = selected.value!!.price
                                     )
                                 )
-                                showSheet = false
+                                showSheet = true
                                 selected.value = null
+
                             }) { Text("Comprar com 1-clique") }
                         }
                     }
@@ -180,7 +181,7 @@ fun GameDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (HistoryIte
 data class Purchasable(val title: String, val subtitle: String, val price: String)
 
 private fun descriptionFor(title: String): String =
-    "Fortnite é um jogo free-to-play com diversos modos e conteúdos épicos. Jogue com amigos e explore ilhas, eventos e muito mais."
+    "Fortnite é um Battlhe com vários modos como Solo, Duo, Trio, Squad e Criativo. Jogue com amigos e os amasse, SHITT OONN"
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
     Purchasable("V-Bucks 12,500", "Pacote especial", kwz(117000)),
