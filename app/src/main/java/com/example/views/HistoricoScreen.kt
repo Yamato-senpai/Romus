@@ -39,12 +39,13 @@ import com.example.romus.ui.theme.RomusTheme
 fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sampleHistory()) {
 
     val context = LocalContext.current
+
     Scaffold { innerPadding ->
         Column(modifier = modifier.fillMaxSize()
             .padding(innerPadding), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
             TopAppBar(
-                title = { Text("Historico") },
+                title = { Text("") },
                 navigationIcon = {
                     IconButton(onClick = { val intent = Intent(context, MainActivity::class.java); context.startActivity(intent) }) {
                         Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)

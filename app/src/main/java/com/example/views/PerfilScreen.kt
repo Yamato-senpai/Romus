@@ -1,6 +1,7 @@
 package com.example.views
 
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,29 +19,37 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.romus.MainActivity
 import com.example.romus.R
 import com.example.romus.ui.theme.RomusTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PerfilScreen(
     modifier: Modifier = Modifier,
     name: String = "Yamato60hz",
-    email: String = "yamato60hz@romus.com",
+    email: String = "yamato60hz@romus.com", )
 
-    ) {
-
+{
+    val context = LocalContext.current
 
 
     Scaffold { innerPadding ->
@@ -51,6 +60,16 @@ fun PerfilScreen(
                 .background(Color.White)
                 .padding(innerPadding)
         ) {
+            TopAppBar(
+                title = { Text("") },
+                navigationIcon = {
+                    IconButton(onClick = { val intent = Intent(context, MainActivity::class.java); context.startActivity(intent) }) {
+                        Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
+                    }
+                },
+
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+            )
 
             Column(
                 modifier = Modifier.weight(1f)
