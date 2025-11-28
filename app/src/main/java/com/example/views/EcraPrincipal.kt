@@ -95,7 +95,7 @@ fun EcraPrincipal(
                         )
                     }
                     Text(text = "Romus", style = MaterialTheme.typography.titleMedium)
-                    Spacer(modifier = Modifier.weight(1f)) // empurra ações para a direita
+                    Spacer(modifier = Modifier.weight(1f))
                     Surface(shape = CircleShape, color = Color.White, shadowElevation = 4.dp) {
                         Box(modifier = Modifier.size(36.dp), contentAlignment = Alignment.Center) {
                             Icon(

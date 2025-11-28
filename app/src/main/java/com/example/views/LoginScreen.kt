@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,94 +41,99 @@ fun LoginScreen(onLogin: () -> Unit = {}) {
     val password = remember { mutableStateOf("") }
     val showPassword = remember { mutableStateOf(false) }
 
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White)
-            .padding(24.dp)
-    ) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Surface(
-                modifier = Modifier.size(80.dp),
-                shape = CircleShape,
-                color = Color.White,
-                shadowElevation = 6.dp
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
-                        contentDescription = null
-                    )
-                }
-            }
-
-            Text(text = "Bem-vindo ", color = Color.Black)
-            Text(text = "Faça login para continuar", color = Color.Black)
-
-
-            Card(
+    Scaffold { innerPadding ->
+        Column {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .widthIn(max = 300.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color.White
-                ),
-                elevation = CardDefaults.cardElevation(2.dp),
-                shape = RoundedCornerShape(30.dp)
+                    .fillMaxSize()
+                    .background(color = Color.White)
+                    .padding(innerPadding)
             ) {
                 Column(
-                    modifier = Modifier.padding(30.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier = Modifier.align(Alignment.Center),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    OutlinedTextField(
-                        value = email.value,
-                        onValueChange = { email.value = it },
-                        label = { Text("Email", color = Color.Black) },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(30.dp)
-                    )
+                    Surface(
+                        modifier = Modifier.size(80.dp),
+                        shape = CircleShape,
+                        color = Color.White,
+                        shadowElevation = 6.dp
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Image(
+                                painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                                contentDescription = null
+                            )
+                        }
+                    }
+
+                    Text(text = "Bem-vindo ", color = Color.Black)
+                    Text(text = "Faça login para continuar", color = Color.Black)
 
 
-                    OutlinedTextField(
-                        value = password.value,
-                        onValueChange = { password.value = it },
-                        label = { Text("Palavra-passe", color = Color.Black) },
-                        singleLine = true,
-                        visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
-
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(30.dp)
-                    )
-
-                    Text(
-                        text = "Esqueci da senha",
-                        color = Color.Black,
-                        modifier = Modifier.align(Alignment.End).clickable { }
-                    )
-
-
-                    Button(
-                        onClick = { onLogin() },
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(48.dp)
-                            .background(color = Color(0xFF8A00FF), RoundedCornerShape(30.dp)),
-                        enabled = true
+                            .widthIn(max = 300.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.White
+                        ),
+                        elevation = CardDefaults.cardElevation(2.dp),
+                        shape = RoundedCornerShape(30.dp)
                     ) {
-                        Text("Entrar", color = Color.Black)
+                        Column(
+                            modifier = Modifier.padding(30.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+
+                            OutlinedTextField(
+                                value = email.value,
+                                onValueChange = { email.value = it },
+                                label = { Text("Email", color = Color.Black) },
+                                singleLine = true,
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(30.dp)
+                            )
+
+
+                            OutlinedTextField(
+                                value = password.value,
+                                onValueChange = { password.value = it },
+                                label = { Text("Palavra-passe", color = Color.Black) },
+                                singleLine = true,
+                                visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
+
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(30.dp)
+                            )
+
+                            Text(
+                                text = "Esqueci da senha",
+                                color = Color.Black,
+                                modifier = Modifier.align(Alignment.End).clickable { }
+                            )
+
+
+                            Button(
+                                onClick = { onLogin() },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp)
+                                    .background(color = Color(0xFF8A00FF), RoundedCornerShape(30.dp)),
+                                enabled = true
+                            ) {
+                                Text("Entrar", color = Color.Black)
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
+
 }
 
 @Preview(showBackground = true)
