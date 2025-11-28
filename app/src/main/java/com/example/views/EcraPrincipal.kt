@@ -1,7 +1,6 @@
 package com.example.views
 
-import android.os.Parcel
-import android.os.Parcelable
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -72,11 +72,12 @@ fun EcraPrincipal(
     )
     LocalContext.current
 
+    Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(top = 50.dp)
+                .padding(innerPadding)
         ) {
             Column {
                 Row(
@@ -230,6 +231,9 @@ fun EcraPrincipal(
 
 
     }
+
+    }
+
 
 
 
