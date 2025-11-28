@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,41 +29,44 @@ import com.example.romus.model.HistoryItem
 @Composable
 fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sampleHistory()) {
 
+    Scaffold { innerPadding ->
+        Column(modifier = modifier.fillMaxSize()
+            .padding(innerPadding), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
-    Column(modifier = modifier.fillMaxSize().padding(top = 50.dp, start = 16.dp, end = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp))
+            {
+                items(items) { item ->
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(10.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
 
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp))
-        {
-            items(items) { item ->
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(10.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
-
-                ) {
-                    Row(
-                        modifier = Modifier.padding(10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Column {
-                            Text(item.title, fontWeight = FontWeight.SemiBold)
-                            Text(item.date, color = Color(0xFF616161))
-                        }
-                        Column(modifier = Modifier.weight(1f),
-                            horizontalAlignment = Alignment.End) {
-                            Text(item.amount, fontWeight = FontWeight.Bold)
-                            Spacer(Modifier.height(6.dp))
+                        Row(
+                            modifier = Modifier.padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column {
+                                Text(item.title, fontWeight = FontWeight.SemiBold)
+                                Text(item.date, color = Color(0xFF616161))
+                            }
+                            Column(modifier = Modifier.weight(1f),
+                                horizontalAlignment = Alignment.End) {
+                                Text(item.amount, fontWeight = FontWeight.Bold)
+                                Spacer(Modifier.height(6.dp))
 
 
+                            }
                         }
                     }
                 }
+                item { Spacer(Modifier.height(24.dp)) }
             }
-            item { Spacer(Modifier.height(24.dp)) }
         }
     }
+
 }
 
 
@@ -80,3 +84,5 @@ fun HistoricoPreview() {
         HistoricoScreen()
     }
 }
+
+
