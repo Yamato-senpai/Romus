@@ -98,7 +98,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                             contentScale = ContentScale.Crop
                         )
                         Text(
-                            text = "Warzone traz combate intenso com modos competitivos e experiências cinematográficas.",
+                            text = "Call of Duty: Warzone é um jogo eletrônico free-to-play do gênero battle royale desenvolvido pela Infinity Ward e Raven Software e publicado pela Activision.",
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.DarkGray,
                             maxLines = 5,
@@ -110,8 +110,8 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
 
                     val purchasables = listOf(
                         WarzoneItem("COD Points 1,100", "Moeda para bundles e Battle Pass.", kwz(10000)),
-                        WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(40000)),
-                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz(11000))
+                        WarzoneItem("COD Points 4,000", "Pacote ampliado para bundles premium.", kwz(39000)),
+                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz(89000))
                     )
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->
