@@ -1,5 +1,6 @@
 package com.example.views
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.romus.MainActivity
 import com.example.romus.ui.theme.GradientEnd
 import com.example.romus.ui.theme.GradientStart
 import com.example.romus.ui.theme.RomusTheme
@@ -63,7 +65,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
-
+    val context = LocalContext.current
     Scaffold { innerPadding ->
         Column {
 
@@ -78,7 +80,7 @@ fun WarzoneDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (History
                         }
                     },
                     actions = {
-                        IconButton(onClick = { }) {
+                        IconButton(onClick = { val intent = Intent(context, MainActivity::class.java); context.startActivity(intent) }) {
                             Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_heart), contentDescription = null)
                         }
                     },
