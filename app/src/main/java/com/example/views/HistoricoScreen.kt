@@ -1,6 +1,7 @@
 package com.example.views
 
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,27 +15,48 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.romus.MainActivity
 import com.example.romus.ui.theme.RomusTheme
 import com.example.romus.model.HistoryItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoricoScreen(modifier: Modifier = Modifier, items: List<HistoryItem> = sampleHistory()) {
 
+    val context = LocalContext.current
     Scaffold { innerPadding ->
         Column(modifier = modifier.fillMaxSize()
             .padding(innerPadding), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
+            TopAppBar(
+                title = { Text("Historico") },
+                navigationIcon = {
+                    IconButton(onClick = { val intent = Intent(context, MainActivity::class.java); context.startActivity(intent) }) {
+                        Icon(painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back), contentDescription = null)
+                    }
+                },
+
+
+            )
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp))
             {
+
                 items(items) { item ->
                     Card(
                         colors = CardDefaults.cardColors(containerColor = Color.White),
