@@ -170,7 +170,7 @@ fun FortniteDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (Histor
                                         showSheet = false
                                         selected.value = null
 
-                                    }) { Text("Comprar com 1-clique") }
+                                    }) { Text("Confirmar compra") }
                                 }
                             }
                         }
@@ -185,12 +185,12 @@ fun FortniteDetail(game: GameItem, onBack: () -> Unit, onRecordPurchase: (Histor
 data class Purchasable(val title: String, val subtitle: String, val price: String)
 
 private fun descriptionFor(title: String): String =
-    "Fortnite é um Battle Royale com vários modos como Solo, Duo, Trio, Squad e Criativo. Jogue com amigos e os amasse, SHITT OONN"
+    "Fortnite é um jogo eletrônico multijogador online e uma plataforma de jogos desenvolvida pela Epic Games e lançada em 2017. Está disponível em sete modos distintos"
 
 private fun purchasablesFor(title: String): List<Purchasable> = listOf(
-    Purchasable("V-Bucks 12,500", "Pacote especial", kwz(117000)),
-    Purchasable("V-Bucks 5,000", "Pacote intermediário com skin", kwz(5200)),
-    Purchasable("V-bucks 10,000", "Pacote base da temporada", kwz(13550)),
+    Purchasable("V-Bucks 1,000", "Compre 1.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite", kwz(9000)),
+    Purchasable("V-Bucks 5,000", "Compre 5.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite", kwz(38000)),
+    Purchasable("V-bucks 13,500", "Compre 13.500 V-Bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite. Com elas, você pode adquirir novos itens de personalização na Loja de Itens, além de conteúdo adicional como o Passe de Batalha da Temporada atual!", kwz(90000)),
 )
 
 private fun currentDateFormatted(): String =
