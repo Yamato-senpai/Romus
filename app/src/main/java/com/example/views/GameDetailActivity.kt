@@ -44,8 +44,6 @@ import com.example.romus.ui.theme.RomusTheme
 import com.example.views.ui.components.AppTopBar
 import com.example.views.ui.components.PurchasableItemRow
 import com.example.views.ui.components.PurchaseBottomSheetContent
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class GameDetailActivity : ComponentActivity() {
@@ -86,7 +84,7 @@ class GameDetailActivity : ComponentActivity() {
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         rememberCoroutineScope()
         var showSheet by remember { mutableStateOf(false) }
-        val context = LocalContext.current
+        LocalContext.current
 
         Scaffold { innerPadding ->
             Column {
@@ -196,9 +194,6 @@ class GameDetailActivity : ComponentActivity() {
         ),
     )
 
-    private fun currentDateFormatted(): String =
-        SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date())
-
     private fun kwz(amount: Int): String {
         val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
         nf.currency = java.util.Currency.getInstance("AOA")
@@ -234,7 +229,7 @@ class GameDetailActivity : ComponentActivity() {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
-    val context = LocalContext.current
+    LocalContext.current
     Scaffold { innerPadding ->
         Column {
 
