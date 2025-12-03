@@ -51,9 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.romus.controller.UserPrefs
 import com.example.romus.model.GameItem
-import com.example.romus.model.HistoryItem
 import com.example.romus.ui.theme.RomusTheme
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -67,14 +65,6 @@ class GameDetailActivity : ComponentActivity() {
         val game: GameItem? = intent.getParcelableExtra("")
         setContent {
             RomusTheme {
-                val historyItems = remember { mutableStateListOf<HistoryItem>() }
-                val scope = rememberCoroutineScope()
-                LaunchedEffect(Unit) {
-                    UserPrefs.flow(this@GameDetailActivity).collect { state ->
-                        historyItems.clear()
-                        historyItems.addAll(state.history)
-                    }
-                }
                 if (game == null) {
                     finish()
                     return@RomusTheme
@@ -83,28 +73,10 @@ class GameDetailActivity : ComponentActivity() {
                     WarzoneDetail(
                         game = game,
                         onBack = { finish() },
-                        onRecordPurchase = { item ->
-                            historyItems.add(0, item)
-                            scope.launch {
-                                UserPrefs.setHistory(
-                                    this@GameDetailActivity,
-                                    historyItems.toList()
-                                )
-                            }
-                        }
                     )
                 } else {
                     FortniteDetail(
-                        game = game,
-                        onRecordPurchase = { item ->
-                            historyItems.add(0, item)
-                            scope.launch {
-                                UserPrefs.setHistory(
-                                    this@GameDetailActivity,
-                                    historyItems.toList()
-                                )
-                            }
-                        }
+                        game = game
                     )
                 }
             }
@@ -114,8 +86,7 @@ class GameDetailActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun FortniteDetail(
-        game: GameItem,
-        onRecordPurchase: (HistoryItem) -> Unit = {}
+        game: GameItem
     ) {
 
         val ctx = LocalContext.current
@@ -271,16 +242,8 @@ class GameDetailActivity : ComponentActivity() {
                                                 "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            onRecordPurchase(
-                                                HistoryItem(
-                                                    title = "Compra: ${selected.value!!.title}",
-                                                    date = currentDateFormatted(),
-                                                    amount = selected.value!!.price
-                                                )
-                                            )
                                             showSheet = false
                                             selected.value = null
-
                                         }) { Text("Confirmar compra") }
                                     }
                                 }
@@ -343,11 +306,10 @@ class GameDetailActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WarzoneDetail(
-    game: GameItem,
-    onBack: () -> Unit,
-    onRecordPurchase: (HistoryItem) -> Unit = {}
-) {
+    fun WarzoneDetail(
+        game: GameItem,
+        onBack: () -> Unit
+    ) {
 
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
@@ -519,16 +481,6 @@ fun WarzoneDetail(
                                             "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        onRecordPurchase(
-                                            HistoryItem(
-                                                title = "Compra: ${selected.value!!.title}",
-                                                date = SimpleDateFormat(
-                                                    "dd MMM yyyy",
-                                                    Locale.getDefault()
-                                                ).format(Date()),
-                                                amount = selected.value!!.price
-                                            )
-                                        )
                                         showSheet = false
                                         selected.value = null
                                     }) { Text("Comprar com 1-clique") }
