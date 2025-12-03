@@ -203,8 +203,8 @@ fun EcraPrincipal(
                                 }
                             )
                             NavigationBarItem(
-                                selected = selectedTab == 1,
-                                onClick = { selectedTab = 1 },
+                                selected = false,
+                                onClick = {},
                                 label = { Text("Histórico") },
                                 icon = {
                                     Icon(
@@ -214,8 +214,8 @@ fun EcraPrincipal(
                                 }
                             )
                             NavigationBarItem(
-                                selected = selectedTab == 2,
-                                onClick = { selectedTab = 2 },
+                                selected = false,
+                                onClick = {},
                                 label = { Text("Perfil") },
                                 icon = {
                                     Icon(
