@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun EcraPrincipal(
     onGameClick: (GameItem) -> Unit = {},
@@ -81,6 +82,7 @@ fun EcraPrincipal(
     LocalContext.current
 
     Scaffold { innerPadding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -120,15 +122,19 @@ fun EcraPrincipal(
                             )
                         }
                     }
+
                 }
+
 
                 when (selectedTab) {
                     0 -> {
+
                         LazyColumn(
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(horizontal = 16.dp),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
+
                         ) {
                             items(items) { game ->
                                 Card(
@@ -184,47 +190,48 @@ fun EcraPrincipal(
                             }
                             item { Spacer(Modifier.height(72.dp)) }
                         }
+                        NavigationBar(containerColor = Color.White) {
+                            NavigationBarItem(
+                                selected = selectedTab == 0,
+                                onClick = { selectedTab = 0 },
+                                label = { Text("Destaques") },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_star),
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+                            NavigationBarItem(
+                                selected = selectedTab == 1,
+                                onClick = { selectedTab = 1 },
+                                label = { Text("Histórico") },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_clock),
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+                            NavigationBarItem(
+                                selected = selectedTab == 2,
+                                onClick = { selectedTab = 2 },
+                                label = { Text("Perfil") },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_person),
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-    NavigationBar(containerColor = Color.White) {
-        NavigationBarItem(
-            selected = selectedTab == 0,
-            onClick = { selectedTab = 0 },
-            label = { Text("Destaques") },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_star),
-                    contentDescription = null
-                )
-            }
-        )
-        NavigationBarItem(
-            selected = selectedTab == 1,
-            onClick = { selectedTab = 1 },
-            label = { Text("Histórico") },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_clock),
-                    contentDescription = null
-                )
-            }
-        )
-        NavigationBarItem(
-            selected = selectedTab == 2,
-            onClick = { selectedTab = 2 },
-            label = { Text("Perfil") },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_person),
-                    contentDescription = null
-                )
-            }
-        )
-    }
+
 
 
 }
