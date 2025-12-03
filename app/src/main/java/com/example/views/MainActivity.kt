@@ -1,6 +1,7 @@
 package com.example.views
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -47,7 +48,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            RomusTheme { EcraPrincipal() }
+            RomusTheme {
+                EcraPrincipal(
+                    onGameClick = { game ->
+                        val intent = Intent(this@MainActivity, GameDetailActivity::class.java)
+                        intent.putExtra("", game)
+                        startActivity(intent)
+                    }
+                )
+            }
         }
     }
 }
