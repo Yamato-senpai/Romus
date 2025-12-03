@@ -53,6 +53,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.model.GameItem
 import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.components.AppTopBar
+import com.example.views.ui.components.PurchasableItemRow
+import com.example.views.ui.components.PurchaseBottomSheetContent
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -76,7 +79,8 @@ class GameDetailActivity : ComponentActivity() {
                     )
                 } else {
                     FortniteDetail(
-                        game = game
+                        game = game,
+                        onBack = { finish() }
                     )
                 }
             }
@@ -86,7 +90,8 @@ class GameDetailActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun FortniteDetail(
-        game: GameItem
+        game: GameItem,
+        onBack: () -> Unit
     ) {
 
         val ctx = LocalContext.current
@@ -104,26 +109,7 @@ class GameDetailActivity : ComponentActivity() {
                         .padding(innerPadding)
                 ) {
 
-                    TopAppBar(
-                        title = { Text(game.title) },
-                        navigationIcon = {
-                            IconButton(onClick = {
-                                val intent = Intent(
-                                    context,
-                                    MainActivity::class.java
-                                ); context.startActivity(
-                                intent
-                            )
-                            }) {
-                                Icon(
-                                    painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back),
-                                    contentDescription = null
-                                )
-                            }
-                        },
-
-                        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
-                    )
+                    AppTopBar(title = game.title, onBack = onBack)
 
 
 
@@ -160,45 +146,13 @@ class GameDetailActivity : ComponentActivity() {
                         val purchasables = purchasablesFor()
                         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             items(purchasables) { item ->
-                                Card(
-                                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                                    elevation = CardDefaults.cardElevation(12.dp),
-                                    shape = RoundedCornerShape(20.dp),
-                                    modifier = Modifier.fillMaxWidth()
-
-                                ) {
-                                    Row(
-                                        modifier = Modifier.padding(20.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = com.example.romus.R.drawable.vbucks),
-                                            contentDescription = "",
-                                            modifier = Modifier.size(70.dp)
-                                        )
-
-                                        Column(modifier = Modifier.weight(1f)) {
-                                            Text(item.title, fontWeight = FontWeight.SemiBold)
-                                            Text(
-                                                item.subtitle,
-                                                color = Color(0xFF616161),
-                                                maxLines = 2,
-                                                overflow = TextOverflow.Ellipsis
-                                            )
-                                        }
-                                        Column(horizontalAlignment = Alignment.End) {
-                                            Text(item.price, fontWeight = FontWeight.Bold)
-                                            Spacer(Modifier.height(6.dp))
-
-                                            Button(onClick = {
-                                                selected.value = item; showSheet = true
-                                            }) {
-                                                Text("Comprar", color = Color.White)
-                                            }
-                                        }
-                                    }
-                                }
+                                PurchasableItemRow(
+                                    imageRes = com.example.romus.R.drawable.vbucks,
+                                    title = item.title,
+                                    subtitle = item.subtitle,
+                                    price = item.price,
+                                    onBuy = { selected.value = item; showSheet = true }
+                                )
                             }
                             item { Spacer(Modifier.height(24.dp)) }
                         }
@@ -208,45 +162,21 @@ class GameDetailActivity : ComponentActivity() {
                                 sheetState = sheetState
                             ) {
                                 androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
-                                Column(
-                                    modifier = Modifier.padding(16.dp),
-                                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Text(
-                                        selected.value!!.title,
-                                        style = MaterialTheme.typography.titleMedium
-                                    )
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = game.thumbRes),
-                                            contentDescription = null,
-                                            modifier = Modifier
-                                                .size(60.dp)
-                                                .clip(RoundedCornerShape(12.dp)),
-                                            contentScale = ContentScale.Crop
-                                        )
-                                        Text(selected.value!!.subtitle, color = Color.DarkGray)
+                                PurchaseBottomSheetContent(
+                                    thumbRes = game.thumbRes,
+                                    title = selected.value!!.title,
+                                    subtitle = selected.value!!.subtitle,
+                                    price = selected.value!!.price,
+                                    onConfirm = {
+                                        Toast.makeText(
+                                            ctx,
+                                            "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        showSheet = false
+                                        selected.value = null
                                     }
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Text(selected.value!!.price, fontWeight = FontWeight.Bold)
-                                        Button(onClick = {
-                                            Toast.makeText(
-                                                ctx,
-                                                "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            showSheet = false
-                                            selected.value = null
-                                        }) { Text("Confirmar compra") }
-                                    }
-                                }
+                                )
                             }
                         }
                     }
@@ -297,7 +227,8 @@ class GameDetailActivity : ComponentActivity() {
                     "Fortnite",
                     com.example.romus.R.drawable.fortnite1,
                     com.example.romus.R.drawable.fortnite
-                )
+                ),
+                onBack = { }
             )
         }
     }
@@ -325,31 +256,7 @@ class GameDetailActivity : ComponentActivity() {
                 .fillMaxSize()
                 .padding(innerPadding)) {
                 // Cabeçalho com navegação e ações
-                TopAppBar(
-                    title = { Text(game.title) },
-                    navigationIcon = {
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                painter = painterResource(id = com.example.romus.R.drawable.ic_arrow_back),
-                                contentDescription = null
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = {
-                            val intent =
-                                Intent(context, MainActivity::class.java); context.startActivity(
-                            intent
-                        )
-                        }) {
-                            Icon(
-                                painter = painterResource(id = com.example.romus.R.drawable.ic_heart),
-                                contentDescription = null
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
-                )
+                AppTopBar(title = game.title, onBack = onBack)
 
 
 
@@ -395,49 +302,13 @@ class GameDetailActivity : ComponentActivity() {
                     )
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->
-                            Card(
-                                colors = CardDefaults.cardColors(containerColor = Color.White),
-                                elevation = CardDefaults.cardElevation(12.dp),
-                                shape = RoundedCornerShape(20.dp),
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(16.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Image(
-                                        painter = painterResource(id = com.example.romus.R.drawable.cod),
-                                        contentDescription = "",
-                                    )
-
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                        ) {
-                                            Text(item.title, fontWeight = FontWeight.SemiBold)
-                                        }
-                                        Text(
-                                            item.subtitle,
-                                            color = Color(0xFF616161),
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                    }
-                                    Column(horizontalAlignment = Alignment.End) {
-                                        Text(item.price, fontWeight = FontWeight.Bold)
-                                        Spacer(Modifier.height(6.dp))
-                                        Button(
-                                            onClick = {
-                                                selected.value = item; showSheet = true
-                                            },
-                                        ) {
-                                            Text("Comprar", color = Color.White)
-                                        }
-                                    }
-                                }
-                            }
+                            PurchasableItemRow(
+                                imageRes = com.example.romus.R.drawable.cod,
+                                title = item.title,
+                                subtitle = item.subtitle,
+                                price = item.price,
+                                onBuy = { selected.value = item; showSheet = true }
+                            )
                         }
                         item { Spacer(Modifier.height(24.dp)) }
                     }
@@ -447,45 +318,21 @@ class GameDetailActivity : ComponentActivity() {
                             sheetState = sheetState
                         ) {
                             androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
-                            Column(
-                                modifier = Modifier.padding(16.dp),
-                                verticalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Text(
-                                    selected.value!!.title,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Image(
-                                        painter = painterResource(id = game.thumbRes),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(60.dp)
-                                            .clip(RoundedCornerShape(12.dp)),
-                                        contentScale = ContentScale.Crop
-                                    )
-                                    Text(selected.value!!.subtitle, color = Color.DarkGray)
+                            PurchaseBottomSheetContent(
+                                thumbRes = game.thumbRes,
+                                title = selected.value!!.title,
+                                subtitle = selected.value!!.subtitle,
+                                price = selected.value!!.price,
+                                onConfirm = {
+                                    Toast.makeText(
+                                        ctx,
+                                        "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    showSheet = false
+                                    selected.value = null
                                 }
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(selected.value!!.price, fontWeight = FontWeight.Bold)
-                                    Button(onClick = {
-                                        Toast.makeText(
-                                            ctx,
-                                            "Acabou de comprar o item ${selected.value!!.title} por ${selected.value!!.price}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        showSheet = false
-                                        selected.value = null
-                                    }) { Text("Comprar com 1-clique") }
-                                }
-                            }
+                            )
                         }
                     }
                 }

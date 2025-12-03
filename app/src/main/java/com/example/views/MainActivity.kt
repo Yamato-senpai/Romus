@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,8 +24,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -48,6 +45,8 @@ import com.example.romus.R
 
 import com.example.romus.model.GameItem
 import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.components.GameCard
+import com.example.views.ui.components.BottomNavBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,94 +136,17 @@ fun EcraPrincipal(
 
                         ) {
                             items(items) { game ->
-                                Card(
-                                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                                    elevation = CardDefaults.cardElevation(10.dp),
-                                    shape = RoundedCornerShape(24.dp),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { onGameClick(game) }
-                                ) {
-                                    Column {
-                                        Image(
-                                            painter = painterResource(id = game.imageRes),
-                                            contentDescription = null,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(200.dp)
-                                                .clip(
-                                                    RoundedCornerShape(
-                                                        topStart = 24.dp,
-                                                        topEnd = 24.dp
-                                                    )
-                                                ),
-                                            contentScale = ContentScale.Crop
-                                        )
-                                        Row(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(16.dp),
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.SpaceBetween
-                                        ) {
-                                            Row(
-                                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                                verticalAlignment = Alignment.CenterVertically
-                                            ) {
-                                                Surface(
-                                                    shape = RoundedCornerShape(8.dp),
-                                                    color = Color(0xFFF2F2F2)
-                                                ) {
-                                                    Image(
-                                                        painter = painterResource(id = game.thumbRes),
-                                                        contentDescription = null,
-                                                        modifier = Modifier.size(30.dp)
-                                                    )
-                                                }
-                                                Text(text = game.title)
-                                            }
-
-                                        }
-                                    }
-                                }
+                                GameCard(
+                                    imageRes = game.imageRes,
+                                    thumbRes = game.thumbRes,
+                                    title = game.title,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onClick = { onGameClick(game) }
+                                )
                             }
                             item { Spacer(Modifier.height(72.dp)) }
                         }
-                        NavigationBar(containerColor = Color.White) {
-                            NavigationBarItem(
-                                selected = selectedTab == 0,
-                                onClick = { selectedTab = 0 },
-                                label = { Text("Destaques") },
-                                icon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_star),
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                            NavigationBarItem(
-                                selected = false,
-                                onClick = {},
-                                label = { Text("Histórico") },
-                                icon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_clock),
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                            NavigationBarItem(
-                                selected = false,
-                                onClick = {},
-                                label = { Text("Perfil") },
-                                icon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_person),
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                        }
+                        BottomNavBar(onSelectDestaques = { selectedTab = 0 })
                     }
                 }
             }
