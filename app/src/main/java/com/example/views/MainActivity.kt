@@ -1,6 +1,9 @@
 package com.example.views
 
-
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,20 +45,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
+
 import com.example.romus.model.GameItem
-import com.example.romus.model.HistoryItem
 import com.example.romus.ui.theme.RomusTheme
 
-// GameItem movido para com.example.romus.model
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            RomusTheme { EcraPrincipal() }
+        }
+    }
+}
 
 @Composable
 fun EcraPrincipal(
     onGameClick: (GameItem) -> Unit = {},
-    historyItems: List<HistoryItem> = emptyList(),
-    profileName: String = "Fabio",
-    profileEmail: String = "fabioromulo19@romus.com",
 
-) {
+    ) {
 
     var selectedTab by remember { mutableIntStateOf(0) }
     val items = listOf(
@@ -177,66 +185,49 @@ fun EcraPrincipal(
                             item { Spacer(Modifier.height(72.dp)) }
                         }
                     }
-
-                    1 -> {
-                        HistoricoScreen(modifier = Modifier.weight(1f), items = historyItems)
-                    }
-
-                    2 -> {
-                        PerfilScreen(
-                            modifier = Modifier.weight(1f),
-                            name = profileName,
-                            email = profileEmail
-                        )
-                    }
-                }
-
-                NavigationBar(containerColor = Color.White) {
-                    NavigationBarItem(
-                        selected = selectedTab == 0,
-                        onClick = { selectedTab = 0 },
-                        label = { Text("Destaques") },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_star),
-                                contentDescription = null
-                            )
-                        }
-                    )
-                    NavigationBarItem(
-                        selected = selectedTab == 1,
-                        onClick = { selectedTab = 1 },
-                        label = { Text("Histórico") },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_clock),
-                                contentDescription = null
-                            )
-                        }
-                    )
-                    NavigationBarItem(
-                        selected = selectedTab == 2,
-                        onClick = { selectedTab = 2 },
-                        label = { Text("Perfil") },
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_person),
-                                contentDescription = null
-                            )
-                        }
-                    )
                 }
             }
         }
-
-
     }
 
+    NavigationBar(containerColor = Color.White) {
+        NavigationBarItem(
+            selected = selectedTab == 0,
+            onClick = { selectedTab = 0 },
+            label = { Text("Destaques") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_star),
+                    contentDescription = null
+                )
+            }
+        )
+        NavigationBarItem(
+            selected = selectedTab == 1,
+            onClick = { selectedTab = 1 },
+            label = { Text("Histórico") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_clock),
+                    contentDescription = null
+                )
+            }
+        )
+        NavigationBarItem(
+            selected = selectedTab == 2,
+            onClick = { selectedTab = 2 },
+            label = { Text("Perfil") },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_person),
+                    contentDescription = null
+                )
+            }
+        )
     }
 
 
-
-
+}
 
 
 @Preview(showBackground = true)
@@ -246,3 +237,4 @@ fun EcraPrincipalPreview() {
         EcraPrincipal()
     }
 }
+
