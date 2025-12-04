@@ -67,6 +67,5 @@ fun GameCardPreview() {
         modifier = Modifier.fillMaxWidth(),
         onClick = {}
     )
-
 }
 
