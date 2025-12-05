@@ -1,4 +1,4 @@
-package com.example.views
+package com.example.views.ui.Activities
 
 import android.os.Bundle
 import android.widget.Toast
@@ -24,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,11 +40,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.romus.R
 import com.example.romus.model.GameItem
 import com.example.romus.ui.theme.RomusTheme
 import com.example.views.ui.components.AppTopBar
 import com.example.views.ui.components.PurchasableItemRow
 import com.example.views.ui.components.PurchaseBottomSheetContent
+import java.text.NumberFormat
+import java.util.Currency
 import java.util.Locale
 
 class GameDetailActivity : ComponentActivity() {
@@ -132,7 +136,7 @@ class GameDetailActivity : ComponentActivity() {
                         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             items(purchasables) { item ->
                                 PurchasableItemRow(
-                                    imageRes = com.example.romus.R.drawable.vbucks,
+                                    imageRes = R.drawable.vbucks,
                                     title = item.title,
                                     subtitle = item.subtitle,
                                     price = item.price,
@@ -146,7 +150,7 @@ class GameDetailActivity : ComponentActivity() {
                                 onDismissRequest = { showSheet = false; selected.value = null },
                                 sheetState = sheetState
                             ) {
-                                androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
+                                LaunchedEffect(Unit) { sheetState.show() }
                                 PurchaseBottomSheetContent(
                                     thumbRes = game.thumbRes,
                                     title = selected.value!!.title,
@@ -195,8 +199,8 @@ class GameDetailActivity : ComponentActivity() {
     )
 
     private fun kwz(amount: Int): String {
-        val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
-        nf.currency = java.util.Currency.getInstance("AOA")
+        val nf = NumberFormat.getCurrencyInstance(Locale.getDefault())
+        nf.currency = Currency.getInstance("AOA")
         return nf.format(amount)
     }
 
@@ -207,8 +211,8 @@ class GameDetailActivity : ComponentActivity() {
             FortniteDetail(
                 game = GameItem(
                     "Fortnite",
-                    com.example.romus.R.drawable.fortnite1,
-                    com.example.romus.R.drawable.fortnite
+                    R.drawable.fortnite1,
+                    R.drawable.fortnite
                 ),
                 onBack = { }
             )
@@ -287,7 +291,7 @@ fun WarzoneDetail(
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->
                             PurchasableItemRow(
-                                imageRes = com.example.romus.R.drawable.cod,
+                                imageRes = R.drawable.cod,
                                 title = item.title,
                                 subtitle = item.subtitle,
                                 price = item.price,
@@ -301,7 +305,7 @@ fun WarzoneDetail(
                             onDismissRequest = { showSheet = false; selected.value = null },
                             sheetState = sheetState
                         ) {
-                            androidx.compose.runtime.LaunchedEffect(Unit) { sheetState.show() }
+                            LaunchedEffect(Unit) { sheetState.show() }
                             PurchaseBottomSheetContent(
                                 thumbRes = game.thumbRes,
                                 title = selected.value!!.title,
@@ -330,8 +334,8 @@ data class WarzoneItem(val title: String, val subtitle: String, val price: Strin
 
 
 private fun kwz(amount: Int): String {
-    val nf = java.text.NumberFormat.getCurrencyInstance(Locale.getDefault())
-    nf.currency = java.util.Currency.getInstance("AOA")
+    val nf = NumberFormat.getCurrencyInstance(Locale.getDefault())
+    nf.currency = Currency.getInstance("AOA")
     return nf.format(amount)
 }
 
@@ -342,8 +346,8 @@ fun WarzoneDetailPreview() {
         WarzoneDetail(
             game = GameItem(
                 "Call of Duty: Warzone",
-                com.example.romus.R.drawable.warzone,
-                com.example.romus.R.drawable.warzone
+                R.drawable.warzone,
+                R.drawable.warzone
             ), onBack = { })
     }
 }
