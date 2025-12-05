@@ -3,8 +3,7 @@
 ## Visão Geral
 - Aplicação Android em Kotlin com Jetpack Compose que demonstra uma loja de jogos simples.
 - Navegação entre duas Activities (`MainActivity` e `GameDetailActivity`) usando apenas `Intent` (sem NavHost).
-- Passagem de objetos de modelo entre Activities via `putExtra`/`getParcelableExtra` com `GameItem` (`Parcelable`).
-- UI composta por telas (`views`) e componentes reutilizáveis (`views/ui/components`), seguindo boas práticas de separação.
+- UI composta por telas (`views`) e componentes reutilizáveis (`views/ui/components`)
 
 ## Funcionalidades
 - Lista de jogos em destaque com cards 
@@ -28,9 +27,7 @@
 - `views/ui/components/*`: componentes reutilizáveis (TopBar, Card de jogo, linha de item, conteúdo do bottom sheet, barra inferior).
 - `romus/model/*`: modelos de dados (`GameItem`, `PurchaseItem`).
 - `romus/controller/*`: controladores e catálogos.
-  - `Navigator`: cria `Intent` para detalhe e define a chave `EXTRA_GAME`.
   - `GameCatalog`: devolve descrição e lista de `PurchaseItem` por jogo.
-  - `sampleGames()`: fornece a lista de jogos de exemplo.
 
 
 ## Componentes Reutilizáveis
@@ -77,6 +74,6 @@ app/src/main/java/com/example/
 ## Decisões Técnicas
 - Separação clara entre UI (views), modelos (model) e controladores (controller).
 - Centralização de dados estáticos (descrições e itens) em `GameCatalog`.
-- Navegação por `Intent` e chave única (`EXTRA_GAME`) em `Navigator`.
+- Navegação por `Intent`.
 
 
