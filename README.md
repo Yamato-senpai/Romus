@@ -53,22 +53,25 @@
 ## Estrutura de Pastas
 ```
 app/src/main/java/com/example/
-├─ views/
-│  ├─ MainActivity.kt
-│  ├─ GameDetailActivity.kt
-│  └─ ui/components/
-│     ├─ AppTopBar.kt
-│     ├─ GameCard.kt
-│     ├─ PurchasableItemRow.kt
-│     ├─ PurchaseBottomSheetContent.kt
-│     └─ BottomNavBar.kt
-├─ romus/
-│  ├─ model/
-│  │  ├─ GameItem.kt
-│  │  └─ PurchaseItem.kt
-│  └─ controller/
-│     ├─ GameCatalog.kt
-│     
+├── views/
+│   ├── ui/
+│   │   ├── Activities/
+│   │   │   ├── MainActivity.kt
+│   │   │   └── GameDetailActivity.kt
+│   │   └── ui/components/
+│   │       ├── AppTopBar.kt
+│   │       ├── GameCard.kt
+│   │       ├── PurchasableItemRow.kt
+│   │       ├── PurchaseBottomSheetContent.kt
+│   │       └── BottomNavBar.kt
+│
+└── romus/
+    ├── model/
+    │   ├── GameItem.kt
+    │   └── PurchaseItem.kt
+    │
+    └── controller/
+        └── GameCatalog.kt  
 ```
 
 ## Decisões Técnicas
