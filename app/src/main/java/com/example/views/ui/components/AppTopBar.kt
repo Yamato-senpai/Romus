@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.romus.R
+import com.example.romus.ui.theme.RomusTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,6 +33,5 @@ fun AppTopBar(title: String, onBack: (() -> Unit)? = null, actions: (@Composable
 @Preview(showBackground = true)
 @Composable
 fun AppTopBarPreview() {
-    AppTopBar(title = "Romus")
+    RomusTheme { AppTopBar(title = "Romus") }
 }
-

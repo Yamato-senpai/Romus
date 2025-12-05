@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.romus.R
+import com.example.romus.ui.theme.RomusTheme
 
 @Composable
 fun BottomNavBar(onSelectDestaques: () -> Unit) {
@@ -36,6 +37,6 @@ fun BottomNavBar(onSelectDestaques: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun BottomNavBarPreview() {
-    BottomNavBar(onSelectDestaques = {})
+    RomusTheme { BottomNavBar(onSelectDestaques = {}) }
 }
 

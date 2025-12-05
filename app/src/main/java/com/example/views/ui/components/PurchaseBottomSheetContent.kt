@@ -22,21 +22,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
+import com.example.romus.ui.theme.RomusTheme
 
 @Composable
-fun PurchaseBottomSheetContent(thumbRes: Int, title: String, subtitle: String, price: String, onConfirm: () -> Unit) {
+fun PurchaseBottomSheetContent(
+    thumbRes: Int,
+    title: String,
+    subtitle: String,
+    price: String,
+    onConfirm: () -> Unit
+) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(title, style = MaterialTheme.typography.titleMedium)
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 painter = painterResource(id = thumbRes),
                 contentDescription = null,
-                modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)),
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop
             )
             Text(subtitle, color = Color.DarkGray)
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(price, fontWeight = FontWeight.Bold)
             Button(onClick = onConfirm) { Text("Confirmar compra") }
         }
@@ -46,11 +62,13 @@ fun PurchaseBottomSheetContent(thumbRes: Int, title: String, subtitle: String, p
 @Preview(showBackground = true)
 @Composable
 fun PurchaseBottomSheetContentPreview() {
-    PurchaseBottomSheetContent(
-        thumbRes = R.drawable.fortnite1,
-        title = "V-Bucks 1,000",
-        subtitle = "Moeda do jogo",
-        price = "Kz 9.000",
-        onConfirm = {}
-    )
+    RomusTheme {
+        PurchaseBottomSheetContent(
+            thumbRes = R.drawable.vbucks,
+            title = "V-Bucks 1,000",
+            subtitle = "Moeda do jogo",
+            price = "Kz 9.000",
+            onConfirm = {}
+        )
+    }
 }

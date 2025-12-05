@@ -180,17 +180,17 @@ class GameDetailActivity : ComponentActivity() {
         Purchasable(
             "V-Bucks 1,000",
             "Compre 1.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite",
-            kwz( 9000)
+            kwz(9000)
         ),
         Purchasable(
             "V-Bucks 5,000",
             "Compre 5.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite",
-            kwz( 38000)
+            kwz(38000)
         ),
         Purchasable(
             "V-bucks 13,500",
             "Compre 13.500 V-Bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite. Com elas, você pode adquirir novos itens de personalização na Loja de Itens, além de conteúdo adicional como o Passe de Batalha da Temporada atual!",
-            kwz( 90000)
+            kwz(90000)
         ),
     )
 
@@ -219,10 +219,10 @@ class GameDetailActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-    fun WarzoneDetail(
-        game: GameItem,
-        onBack: () -> Unit
-    ) {
+fun WarzoneDetail(
+    game: GameItem,
+    onBack: () -> Unit
+) {
 
     val ctx = LocalContext.current
     val selected = remember { mutableStateOf<WarzoneItem?>(null) }
@@ -234,9 +234,11 @@ class GameDetailActivity : ComponentActivity() {
         Column {
 
 
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
                 // Cabeçalho com navegação e ações
                 AppTopBar(title = game.title, onBack = onBack)
 
@@ -273,14 +275,14 @@ class GameDetailActivity : ComponentActivity() {
                         WarzoneItem(
                             "COD Points 1,100",
                             "Moeda para bundles e Battle Pass.",
-                            kwz( 10000)
+                            kwz(10000)
                         ),
                         WarzoneItem(
                             "COD Points 4,000",
                             "Pacote ampliado para bundles premium.",
-                            kwz(  39000)
+                            kwz(39000)
                         ),
-                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz( 89000))
+                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz(89000))
                     )
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->

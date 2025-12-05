@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
+import com.example.romus.ui.theme.RomusTheme
 
 @Composable
 fun GameCard(imageRes: Int, thumbRes: Int, title: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
@@ -60,12 +61,14 @@ fun GameCard(imageRes: Int, thumbRes: Int, title: String, modifier: Modifier = M
 @Preview(showBackground = true)
 @Composable
 fun GameCardPreview() {
-    GameCard(
-        imageRes = R.drawable.fortnite,
-        thumbRes = R.drawable.fortnite1,
-        title = "Fortnite",
-        modifier = Modifier.fillMaxWidth(),
-        onClick = {}
-    )
+    RomusTheme {
+        GameCard(
+            imageRes = R.drawable.fortnite,
+            thumbRes = R.drawable.fortnite1,
+            title = "Fortnite",
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {}
+        )
+    }
 }
 

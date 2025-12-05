@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
+import com.example.romus.ui.theme.RomusTheme
 
 @Composable
 fun PurchasableItemRow(imageRes: Int, title: String, subtitle: String, price: String, onBuy: () -> Unit) {
@@ -54,12 +55,13 @@ fun PurchasableItemRow(imageRes: Int, title: String, subtitle: String, price: St
 @Preview(showBackground = true)
 @Composable
 fun PurchasableItemRowPreview() {
-    PurchasableItemRow(
-        imageRes = R.drawable.vbucks,
-        title = "V-Bucks 1,000",
-        subtitle = "Moeda de jogo",
-        price = "Kz 9.000",
-        onBuy = {}
-    )
+    RomusTheme {
+        PurchasableItemRow(
+            imageRes = R.drawable.vbucks,
+            title = "V-Bucks 1,000",
+            subtitle = "Moeda de jogo",
+            price = "Kz 9.000",
+            onBuy = {}
+        )
+    }
 }
-
