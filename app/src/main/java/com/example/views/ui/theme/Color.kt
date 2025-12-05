@@ -1,4 +1,4 @@
-package com.example.romus.ui.theme
+package com.example.views.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -10,6 +10,3 @@ val Purple40 = Color(0xFF1E88E5)
 val PurpleGrey40 = Color(0xFF039BE5)
 val Pink40 = Color(0xFF1976D2)
 
-val DarkPurpleBackground = Color(0xFF1A1033)
-val GradientStart = Color(0xFF8A00FF)
-val GradientEnd = Color(0xFFFF2EA3)

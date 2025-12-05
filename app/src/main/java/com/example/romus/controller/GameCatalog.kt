@@ -5,6 +5,10 @@ import com.example.romus.model.GameItem
 import com.example.romus.model.PurchaseItem
 
 object GameCatalog {
+    fun sampleGames(): List<GameItem> = listOf(
+        GameItem("Fortnite", R.drawable.fortnite1, R.drawable.fortnite),
+        GameItem("Call of Duty: Warzone", R.drawable.warzone1, R.drawable.warzone)
+    )
     fun descriptionFor(game: GameItem): String = when {
         game.title.contains("Fortnite", ignoreCase = true) ->
             "Fortnite é um jogo eletrônico multijogador online e uma plataforma de jogos desenvolvida pela Epic Games e lançada em 2017. Está disponível em sete modos distintos"
@@ -63,4 +67,3 @@ object GameCatalog {
         return nf.format(amount)
     }
 }
-

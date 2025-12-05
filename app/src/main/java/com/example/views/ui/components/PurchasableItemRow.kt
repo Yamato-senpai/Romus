@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
-import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.theme.RomusTheme
 
 @Composable
 fun PurchasableItemRow(imageRes: Int, title: String, subtitle: String, price: String, onBuy: () -> Unit) {

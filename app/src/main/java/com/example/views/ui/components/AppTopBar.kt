@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.romus.R
-import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.theme.RomusTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

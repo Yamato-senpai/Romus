@@ -1,6 +1,7 @@
 package com.example.views.ui.Activities
 
 import android.os.Bundle
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,19 +43,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
 import com.example.romus.model.GameItem
-import com.example.romus.ui.theme.RomusTheme
+import com.example.romus.model.PurchaseItem
+import com.example.romus.controller.GameCatalog
+import com.example.views.ui.theme.RomusTheme
 import com.example.views.ui.components.AppTopBar
 import com.example.views.ui.components.PurchasableItemRow
 import com.example.views.ui.components.PurchaseBottomSheetContent
-import java.text.NumberFormat
-import java.util.Currency
-import java.util.Locale
 
 class GameDetailActivity : ComponentActivity() {
+    companion object {
+        const val EXTRA_GAME = "extra_game"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val game: GameItem? = intent.getParcelableExtra("")
+        val game: GameItem? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_GAME, GameItem::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(EXTRA_GAME)
+        }
         setContent {
             RomusTheme {
                 if (game == null) {
@@ -84,7 +92,7 @@ class GameDetailActivity : ComponentActivity() {
     ) {
 
         val ctx = LocalContext.current
-        val selected = remember { mutableStateOf<Purchasable?>(null) }
+        val selected = remember { mutableStateOf<PurchaseItem?>(null) }
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         rememberCoroutineScope()
         var showSheet by remember { mutableStateOf(false) }
@@ -119,7 +127,7 @@ class GameDetailActivity : ComponentActivity() {
                                 contentScale = ContentScale.Crop
                             )
                             Text(
-                                text = descriptionFor(),
+                                text = GameCatalog.descriptionFor(game),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = Color.DarkGray,
                                 maxLines = 5,
@@ -132,11 +140,11 @@ class GameDetailActivity : ComponentActivity() {
                             style = MaterialTheme.typography.titleSmall
                         )
 
-                        val purchasables = purchasablesFor()
+                        val purchasables: List<PurchaseItem> = GameCatalog.purchaseItemsFor(game)
                         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             items(purchasables) { item ->
                                 PurchasableItemRow(
-                                    imageRes = R.drawable.vbucks,
+                                    imageRes = item.imageRes,
                                     title = item.title,
                                     subtitle = item.subtitle,
                                     price = item.price,
@@ -175,34 +183,7 @@ class GameDetailActivity : ComponentActivity() {
 
     }
 
-    data class Purchasable(val title: String, val subtitle: String, val price: String)
 
-    private fun descriptionFor(): String =
-        "Fortnite é um jogo eletrônico multijogador online e uma plataforma de jogos desenvolvida pela Epic Games e lançada em 2017. Está disponível em sete modos distintos"
-
-    private fun purchasablesFor(): List<Purchasable> = listOf(
-        Purchasable(
-            "V-Bucks 1,000",
-            "Compre 1.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite",
-            kwz(9000)
-        ),
-        Purchasable(
-            "V-Bucks 5,000",
-            "Compre 5.000 V-bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite",
-            kwz(38000)
-        ),
-        Purchasable(
-            "V-bucks 13,500",
-            "Compre 13.500 V-Bucks do Fortnite, a moeda do jogo que pode ser gasta no Fortnite. Com elas, você pode adquirir novos itens de personalização na Loja de Itens, além de conteúdo adicional como o Passe de Batalha da Temporada atual!",
-            kwz(90000)
-        ),
-    )
-
-    private fun kwz(amount: Int): String {
-        val nf = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        nf.currency = Currency.getInstance("AOA")
-        return nf.format(amount)
-    }
 
     @Preview(showBackground = true)
     @Composable
@@ -229,7 +210,7 @@ fun WarzoneDetail(
 ) {
 
     val ctx = LocalContext.current
-    val selected = remember { mutableStateOf<WarzoneItem?>(null) }
+    val selected = remember { mutableStateOf<PurchaseItem?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
@@ -265,7 +246,7 @@ fun WarzoneDetail(
                             contentScale = ContentScale.Crop
                         )
                         Text(
-                            text = "Call of Duty: Warzone é um jogo eletrônico free-to-play do gênero battle royale desenvolvido pela Infinity Ward e Raven Software e publicado pela Activision.",
+                            text = GameCatalog.descriptionFor(game),
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.DarkGray,
                             maxLines = 5,
@@ -275,23 +256,11 @@ fun WarzoneDetail(
 
                     Text(text = "Itens disponíveis", style = MaterialTheme.typography.titleSmall)
 
-                    val purchasables = listOf(
-                        WarzoneItem(
-                            "COD Points 1,100",
-                            "Moeda para bundles e Battle Pass.",
-                            kwz(10000)
-                        ),
-                        WarzoneItem(
-                            "COD Points 4,000",
-                            "Pacote ampliado para bundles premium.",
-                            kwz(39000)
-                        ),
-                        WarzoneItem("COD Points 5,000", "Pacote base da Season", kwz(89000))
-                    )
+                    val purchasables: List<PurchaseItem> = GameCatalog.purchaseItemsFor(game)
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(purchasables) { item ->
                             PurchasableItemRow(
-                                imageRes = R.drawable.cod,
+                                imageRes = item.imageRes,
                                 title = item.title,
                                 subtitle = item.subtitle,
                                 price = item.price,
@@ -330,14 +299,7 @@ fun WarzoneDetail(
 }
 
 
-data class WarzoneItem(val title: String, val subtitle: String, val price: String)
-
-
-private fun kwz(amount: Int): String {
-    val nf = NumberFormat.getCurrencyInstance(Locale.getDefault())
-    nf.currency = Currency.getInstance("AOA")
-    return nf.format(amount)
-}
+ 
 
 @Preview(showBackground = true)
 @Composable

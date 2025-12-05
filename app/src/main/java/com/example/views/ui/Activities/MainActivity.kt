@@ -39,7 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
 import com.example.romus.model.GameItem
-import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.theme.RomusTheme
 import com.example.views.ui.components.BottomNavBar
 import com.example.views.ui.components.GameCard
 
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                 EcraPrincipal(
                     onGameClick = { game ->
                         val intent = Intent(this@MainActivity, GameDetailActivity::class.java)
-                        intent.putExtra("", game)
+                        intent.putExtra(GameDetailActivity.EXTRA_GAME, game)
                         startActivity(intent)
                     }
                 )
@@ -69,18 +69,7 @@ fun EcraPrincipal(
     ) {
 
     var selectedTab by remember { mutableIntStateOf(0) }
-    val items = listOf(
-        GameItem(
-            "Fortnite",
-            R.drawable.fortnite1,
-            R.drawable.fortnite
-        ),
-        GameItem(
-            "Call of Duty: Warzone",
-            R.drawable.warzone1,
-            R.drawable.warzone
-        )
-    )
+    val games = com.example.romus.controller.GameCatalog.sampleGames()
     LocalContext.current
 
     Scaffold { innerPadding ->
@@ -138,7 +127,7 @@ fun EcraPrincipal(
                             verticalArrangement = Arrangement.spacedBy(16.dp)
 
                         ) {
-                            items(items) { game ->
+                            items(games) { game ->
                                 GameCard(
                                     imageRes = game.imageRes,
                                     thumbRes = game.thumbRes,

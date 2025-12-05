@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.romus.R
-import com.example.romus.ui.theme.RomusTheme
+import com.example.views.ui.theme.RomusTheme
 
 @Composable
 fun PurchaseBottomSheetContent(
