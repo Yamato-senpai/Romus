@@ -75,5 +75,6 @@ app/src/main/java/com/example/
 - Separação clara entre UI (views), modelos (model) e controladores (controller).
 - Centralização de dados estáticos (descrições e itens) em `GameCatalog`.
 - Navegação por `Intent`.
+- Android Studio Narwhall 1.1
 
 
